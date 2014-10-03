@@ -32,7 +32,7 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-
+    [self setUpAddressArray];
 }
 
 
@@ -40,6 +40,9 @@
 {
     NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Address"];
     [request setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]]];
+    if (![self.searchBar.text isEqualToString:@""]) {
+        [request setPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]];
+    }
     self.addresses = [self.moc executeFetchRequest:request error:nil];
     [self.tableView reloadData];
 }
@@ -56,6 +59,19 @@
     cell.textLabel.text = person.name;
     cell.detailTextLabel.text = person.phoneNumber;
     return cell;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Address* person = [self.addresses objectAtIndex:indexPath.row];
+    [self.moc deleteObject:person];
+    [self.moc save:nil];
+    [self setUpAddressArray];
 }
 
 - (IBAction)editButtonPressed:(id)sender
