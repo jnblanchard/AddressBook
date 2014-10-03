@@ -11,15 +11,18 @@
 #import "DetailViewController.h"
 #import "Address.h"
 
-@interface AddressBookViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface AddressBookViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property NSArray* addresses;
+@property NSMutableArray* persons;
 @end
 
 @implementation AddressBookViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.persons = [NSMutableArray new];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -27,9 +30,16 @@
     [self setUpAddressArray];
 }
 
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+
+}
+
+
 - (void) setUpAddressArray
 {
     NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Address"];
+    [request setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]]];
     self.addresses = [self.moc executeFetchRequest:request error:nil];
     [self.tableView reloadData];
 }
@@ -62,6 +72,7 @@
     if ([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
         DetailViewController* dvc = segue.destinationViewController;
         NSIndexPath* selected = [self.tableView indexPathForSelectedRow];
+        dvc.moc = self.moc;
         dvc.person = [self.addresses objectAtIndex:selected.row];
     }
 }

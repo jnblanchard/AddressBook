@@ -62,6 +62,19 @@
         self.phoneField.userInteractionEnabled = NO;
         self.emailField.userInteractionEnabled = NO;
         self.addressField.userInteractionEnabled = NO;
+        if (![self.nameField.text isEqualToString:@""]) {
+            self.person.name = self.nameField.text;
+        }
+        if (![self.phoneField.text isEqualToString:@""]) {
+            self.person.phoneNumber = self.phoneField.text;
+        }
+        if (![self.emailField.text isEqualToString:@""]) {
+            self.person.email = self.emailField.text;
+        }
+        if (![self.addressField.text isEqualToString:@""]) {
+            self.person.address = self.addressField.text;
+        }
+        [self.moc save:nil];
     }
 }
 
