@@ -19,6 +19,7 @@
 		0B1265FA19DF20240062FA05 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1265F919DF20240062FA05 /* Address.m */; };
 		0B1265FC19DF21E70062FA05 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1265FB19DF21E70062FA05 /* CoreData.framework */; };
 		0B1265FF19DF24BA0062FA05 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1265FE19DF24BA0062FA05 /* DetailViewController.m */; };
+		0B6E1A2E19DF59CB005E562C /* AddressBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E1A2D19DF59CB005E562C /* AddressBookTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		0B1265FB19DF21E70062FA05 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0B1265FD19DF24BA0062FA05 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		0B1265FE19DF24BA0062FA05 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		0B6E1A2C19DF59CB005E562C /* AddressBookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookTableViewCell.h; sourceTree = "<group>"; };
+		0B6E1A2D19DF59CB005E562C /* AddressBookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 				0B1265FE19DF24BA0062FA05 /* DetailViewController.m */,
 				0B1265F819DF20240062FA05 /* Address.h */,
 				0B1265F919DF20240062FA05 /* Address.m */,
+				0B6E1A2C19DF59CB005E562C /* AddressBookTableViewCell.h */,
+				0B6E1A2D19DF59CB005E562C /* AddressBookTableViewCell.m */,
 				0B1265D619DF1C700062FA05 /* Main.storyboard */,
 				0B1265D919DF1C700062FA05 /* Images.xcassets */,
 				0B1265DB19DF1C700062FA05 /* LaunchScreen.xib */,
@@ -242,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B1265FA19DF20240062FA05 /* Address.m in Sources */,
+				0B6E1A2E19DF59CB005E562C /* AddressBookTableViewCell.m in Sources */,
 				0B1265F719DF1FB70062FA05 /* CreateAddressViewController.m in Sources */,
 				0B1265D219DF1C700062FA05 /* AddressBook.xcdatamodeld in Sources */,
 				0B1265CF19DF1C700062FA05 /* AppDelegate.m in Sources */,
@@ -438,6 +444,7 @@
 				0B1265EE19DF1C700062FA05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0B1265EF19DF1C700062FA05 /* Build configuration list for PBXNativeTarget "AddressBookTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +453,7 @@
 				0B1265F119DF1C700062FA05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

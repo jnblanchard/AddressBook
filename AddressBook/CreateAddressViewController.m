@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *addressField;
-
 @end
 
 @implementation CreateAddressViewController

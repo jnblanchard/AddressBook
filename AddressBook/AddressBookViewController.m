@@ -7,6 +7,7 @@
 //
 
 #import "AddressBookViewController.h"
+#import "AddressBookTableViewCell.h"
 #import "CreateAddressViewController.h"
 #import "DetailViewController.h"
 #import "Address.h"
@@ -22,6 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.backgroundColor = [UIColor yellowColor];
+    self.tableView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.tableView.layer.borderWidth = 2.0f;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor yellowColor]];
+    self.searchBar.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.searchBar.layer.borderWidth = 2.0;
     self.persons = [NSMutableArray new];
 }
 
@@ -55,11 +62,21 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Address* person = [self.addresses objectAtIndex:indexPath.row];
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.textLabel.text = person.name;
-    cell.detailTextLabel.text = person.phoneNumber;
+    AddressBookTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.backgroundColor = [UIColor blackColor];
+    cell.nameLabel.text = person.name;
+    cell.nameLabel.textColor = [UIColor whiteColor];
+    cell.phoneLabel.text = person.phoneNumber;
+    cell.phoneLabel.textColor = [UIColor whiteColor];
+    cell.emailLabel.text = person.email;
+    cell.emailLabel.textColor = [UIColor whiteColor];
+    cell.addressLabel.text = person.address;
+    cell.addressLabel.textColor = [UIColor whiteColor];
+    cell.photoImageView.image = [UIImage imageNamed:@"placeholder"];
     return cell;
 }
+
+
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
