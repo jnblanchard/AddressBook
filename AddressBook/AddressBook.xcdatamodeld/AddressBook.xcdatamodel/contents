@@ -7,7 +7,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
-        <relationship name="addressBook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AddressBook" inverseName="addresses" inverseEntity="AddressBook" syncable="YES"/>
+        <relationship name="addressBook" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AddressBook" inverseName="addresses" inverseEntity="AddressBook" syncable="YES"/>
     </entity>
     <entity name="AddressBook" representedClassName="AddressBook" syncable="YES">
         <attribute name="isSaved" optional="YES" attributeType="Boolean" syncable="YES"/>

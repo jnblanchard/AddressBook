@@ -2,20 +2,22 @@
 //  Address.m
 //  AddressBook
 //
-//  Created by John Blanchard on 10/4/14.
+//  Created by John Blanchard on 10/6/14.
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
 #import "Address.h"
+#import "AddressBook.h"
 
 
 @implementation Address
 
 @dynamic address;
 @dynamic email;
+@dynamic isFavorite;
 @dynamic name;
 @dynamic phoneNumber;
 @dynamic photo;
-@dynamic isFavorite;
+@dynamic addressBook;
 
 @end

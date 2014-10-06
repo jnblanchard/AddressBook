@@ -21,12 +21,14 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editDoneButton;
 @property NSArray* allArray;
 @property BOOL editSwitch;
+@property AddressBook* bookCopy;
 @end
 
 @implementation GroupEditViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.bookCopy = self.book;
     if (![self.book.name isEqual:nil]) {
         [self.navigationItem setTitle:self.book.name];
         self.nameTextField.text = self.book.name;
@@ -49,31 +51,30 @@
     self.searchBar.barStyle = UIBarStyleDefault;
 
     self.editSwitch = 0;
-    self.popArray = [NSMutableArray new];
-    self.popFavArray = [NSMutableArray new];
     [self readSwitchPopulateGroup];
 
 }
 
 -(void) readSwitchPopulateGroup
 {
+    self.popArray = [NSMutableArray new];
+    self.popFavArray = [NSMutableArray new];
     for (Address* address in [self.book.addresses allObjects]) {
         [self.popArray addObject:address];
         if ([address.isFavorite  isEqual: @1]) {
             [self.popFavArray addObject:address];
         }
     }
-    if (self.editSwitch) {
-        [self setUpArrays];
-    } else {
-        [self.tableView reloadData];
-    }
+    [self setUpArrays];
 }
 
 - (void) searchResultsAndReload
 {
-    self.popArray = [[self.popArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]] mutableCopy];
-    self.popFavArray = [[self.popFavArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]] mutableCopy];
+    [self readSwitchPopulateGroup];
+    if (![self.searchBar.text isEqualToString:@""]) {
+        self.popArray = [[self.popArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]] mutableCopy];
+        self.popFavArray = [[self.popFavArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]] mutableCopy];
+    }
     [self.tableView reloadData];
 }
 
@@ -174,7 +175,11 @@
 
 - (IBAction)segmentedControlChange:(id)sender
 {
-    [self setUpArrays];
+    if (self.editSwitch) {
+        [self setUpArrays];
+    } else {
+        [self searchResultsAndReload];
+    }
     [self.tableView reloadData];
 }
 
@@ -208,11 +213,16 @@
             self.editSwitch = 1;
             [self setUpArrays];
             [self checkEmptyAddressBookName];
+        } else {
+            self.editDoneButton.title = @"Edit";
+            self.editSwitch = 0;
+            self.book = self.bookCopy;
+            [self.moc save:nil];
+            [self checkEmptyAddressBookName];
         }
     }
     if (alertView.tag == 6) {
         if (buttonIndex == 1) {
-            NSLog(@"%@", self.book);
             [self.moc deleteObject:self.book];
             [self.moc save:nil];
             [self.navigationController popViewControllerAnimated:YES];

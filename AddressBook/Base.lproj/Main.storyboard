@@ -336,7 +336,7 @@
             </objects>
             <point key="canvasLocation" x="1170" y="-111"/>
         </scene>
-        <!--lol-->
+        <!--New Group-->
         <scene sceneID="682-is-1qd">
             <objects>
                 <viewController id="A7w-sB-dsa" customClass="GroupEditViewController" sceneMemberID="viewController">
@@ -411,7 +411,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="lol" id="kmi-3J-y9Y">
+                    <navigationItem key="navigationItem" title="New Group" id="kmi-3J-y9Y">
                         <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="KD7-IS-Pj8">
                             <connections>
                                 <action selector="rewindButtonHit:" destination="A7w-sB-dsa" id="C3K-0u-i3h"/>
