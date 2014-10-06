@@ -97,4 +97,9 @@
     }
 }
 
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self setUpAddressBookArray];
+}
+
 @end
