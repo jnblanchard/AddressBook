@@ -11,4 +11,5 @@
 
 @interface AddressBookViewController : UIViewController
 @property NSManagedObjectContext* moc;
+- (void) setUpAddressArray;
 @end

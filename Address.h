@@ -2,7 +2,7 @@
 //  Address.h
 //  AddressBook
 //
-//  Created by John Blanchard on 10/3/14.
+//  Created by John Blanchard on 10/4/14.
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
@@ -12,9 +12,11 @@
 
 @interface Address : NSManagedObject
 
+@property (nonatomic, retain) NSString * address;
+@property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * phoneNumber;
-@property (nonatomic, retain) NSString * email;
-@property (nonatomic, retain) NSString * address;
+@property (nonatomic, retain) NSData * photo;
+@property (nonatomic, retain) NSNumber * isFavorite;
 
 @end

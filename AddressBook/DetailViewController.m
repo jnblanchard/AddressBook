@@ -7,12 +7,15 @@
 //
 
 #import "DetailViewController.h"
+#import "AddressBookViewController.h"
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UISwitch *favoriteSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *addressField;
 @end
 
@@ -21,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpView];
+    NSLog(@"entering %d", [self.person.isFavorite  isEqual: @1]);
 }
 
 -(void) setUpView
@@ -29,7 +33,7 @@
     self.phoneField.userInteractionEnabled = NO;
     self.emailField.userInteractionEnabled = NO;
     self.addressField.userInteractionEnabled = NO;
-    UIColor *color = [UIColor redColor];
+    UIColor *color = [UIColor blackColor];
     self.nameField.attributedPlaceholder =
     [[NSAttributedString alloc]
      initWithString:self.person.name
@@ -46,6 +50,21 @@
     [[NSAttributedString alloc]
      initWithString:self.person.address
      attributes:@{NSForegroundColorAttributeName:color}];
+    if (!self.person.isFavorite) {
+        self.person.isFavorite = [NSNumber numberWithBool:NO];
+        [self.moc save:nil];
+    }
+    if ([self.person.isFavorite  isEqual: @1]) {
+        self.favoriteButton.backgroundColor = [UIColor whiteColor];
+        [self.favoriteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Unfavorite" forState:UIControlStateNormal];
+        self.favoriteSwitch.on = YES;
+    } else {
+        self.favoriteButton.backgroundColor = [UIColor blackColor];
+        [self.favoriteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Favorite" forState:UIControlStateNormal];
+        self.favoriteSwitch.on = NO;
+    }
 }
 
 - (IBAction)editButtonPressed:(UIBarButtonItem*)sender
@@ -75,6 +94,39 @@
             self.person.address = self.addressField.text;
         }
         [self.moc save:nil];
+    }
+}
+
+- (IBAction)favoriteButtonPressed:(id)sender
+{
+    if ([self.person.isFavorite isEqual:@1]) {
+        self.favoriteButton.backgroundColor = [UIColor blackColor];
+        [self.favoriteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Favorite" forState:UIControlStateNormal];
+        NSLog(@"%@", self.person.isFavorite);
+        self.person.isFavorite = @0;
+        self.favoriteSwitch.on = NO;
+        NSLog(@"off - %@", self.person.isFavorite);
+
+    } else {
+        self.favoriteButton.backgroundColor = [UIColor whiteColor];
+        [self.favoriteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Unfavorite" forState:UIControlStateNormal];
+        NSLog(@"%@", self.person.isFavorite);
+        self.person.isFavorite = [NSNumber numberWithBool:YES];
+        self.favoriteSwitch.on = YES;
+        NSLog(@"on - %@", self.person.isFavorite);
+    }
+    [self.moc save:nil];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.destinationViewController isKindOfClass:[AddressBookViewController class]]) {
+        AddressBookViewController* avc = segue.destinationViewController;
+        NSLog(@"exiting - %@", self.person.isFavorite);
+        avc.moc = self.moc;
+        [avc setUpAddressArray];
     }
 }
 

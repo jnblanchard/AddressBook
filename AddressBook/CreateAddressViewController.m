@@ -31,7 +31,10 @@
         person.phoneNumber = self.phoneNumberField.text;
         person.email = self.emailField.text;
         person.address = self.addressField.text;
+        person.isFavorite = [NSNumber numberWithBool:NO];
         [self.moc save:nil];
+        AddressBookViewController* avc = self.navigationController.viewControllers.firstObject;
+        avc.moc = self.moc;
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
 
