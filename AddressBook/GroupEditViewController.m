@@ -10,6 +10,7 @@
 #import "GroupsViewController.h"
 #import "AddressBook.h"
 #import "Address.h"
+#import "DetailViewController.h"
 
 @interface GroupEditViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -22,6 +23,8 @@
 @property NSArray* allArray;
 @property BOOL editSwitch;
 @property AddressBook* bookCopy;
+@property BOOL okayToEndSwitch;
+@property Address* person;
 @end
 
 @implementation GroupEditViewController
@@ -33,6 +36,7 @@
         [self.navigationItem setTitle:self.book.name];
         self.nameTextField.text = self.book.name;
     }
+    self.okayToEndSwitch = YES;
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
     self.tableView.layer.borderWidth = 2.0f;
@@ -51,8 +55,11 @@
     self.searchBar.barStyle = UIBarStyleDefault;
 
     self.editSwitch = 0;
-    [self readSwitchPopulateGroup];
+}
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self readSwitchPopulateGroup];
 }
 
 -(void) readSwitchPopulateGroup
@@ -142,6 +149,11 @@
         [self.book removeAddressesObject:person];
         [self.tableView reloadData];
     }
+    if (![self.book.addresses isEqual:self.bookCopy.addresses]) {
+        self.okayToEndSwitch = NO;
+    } else {
+        self.okayToEndSwitch = YES;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -212,8 +224,10 @@
             self.editDoneButton.title = @"Done";
             self.editSwitch = 1;
             [self setUpArrays];
+            NSLog(@"here");
             [self checkEmptyAddressBookName];
         } else {
+            NSLog(@"here part2");
             self.editDoneButton.title = @"Edit";
             self.editSwitch = 0;
             self.book = self.bookCopy;
@@ -258,6 +272,37 @@
         alert.tag = 6;
         [alert show];
     }
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCellEditingStyle style = UITableViewCellEditingStyleDelete;
+    return style;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"View";
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.editSwitch) {
+        self.person = [self.allArray objectAtIndex:indexPath.row];
+    } else {
+        if (self.segmentedControl.selectedSegmentIndex == 1) {
+            self.person = [self.popFavArray objectAtIndex:indexPath.row];
+        } else {
+            self.person = [self.popArray objectAtIndex:indexPath.row];
+        }
+    }
+    [self performSegueWithIdentifier:@"detail" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    DetailViewController* dvc = segue.destinationViewController;
+    dvc.person = self.person;
 }
 
 @end

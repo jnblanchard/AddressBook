@@ -10,12 +10,18 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="contact-EdLoLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-uz-zBn">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contact-EdLoLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-uz-zBn">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="6B7-uz-zBn" secondAttribute="bottom" id="GOC-9H-2RY"/>
+                <constraint firstAttribute="trailing" secondItem="6B7-uz-zBn" secondAttribute="trailing" id="WRv-5p-3Bu"/>
+                <constraint firstItem="6B7-uz-zBn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="a2X-Oc-nJH"/>
+                <constraint firstItem="6B7-uz-zBn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cgb-qI-bJx"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>

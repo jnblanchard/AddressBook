@@ -429,6 +429,7 @@
                         <outlet property="searchBar" destination="jVJ-zz-bru" id="fO6-a4-b3S"/>
                         <outlet property="segmentedControl" destination="8wZ-4B-lab" id="wbQ-ib-aAB"/>
                         <outlet property="tableView" destination="TQw-ay-dWr" id="FK0-o1-848"/>
+                        <segue destination="EyP-KZ-Mbd" kind="push" identifier="detail" id="6p2-8N-mpO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnB-YU-pvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -461,5 +462,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="kkc-V3-cVs"/>
+        <segue reference="6p2-8N-mpO"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     self.tableView.layer.borderWidth = 2.0f;
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
     self.searchBar.layer.borderColor = [UIColor blackColor].CGColor;

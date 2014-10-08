@@ -26,6 +26,11 @@
 - (IBAction)doneButtonPressed:(id)sender
 {
     if ([self checkFields]) {
+        [self.nameField resignFirstResponder];
+        [self.phoneNumberField resignFirstResponder];
+        [self.emailField resignFirstResponder];
+        [self.addressField resignFirstResponder];
+        [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
         Address* person = [NSEntityDescription insertNewObjectForEntityForName:@"Address" inManagedObjectContext:self.moc];
         person.name = self.nameField.text;
         person.phoneNumber = self.phoneNumberField.text;
@@ -37,8 +42,27 @@
         avc.moc = self.moc;
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
-
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Missing information for the new contact" message:[self missingMessage] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+        [alert show];
     }
+}
+
+-(NSString*) missingMessage
+{
+    NSString* message = @"";
+    if ([self.nameField.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Enter a first, last name\n"];
+    }
+    if ([self.addressField.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Enter an address\n"];
+    }
+    if ([self.phoneNumberField.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Enter a phone number\n"];
+    }
+    if ([self.emailField.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Enter an email"];
+    }
+    return message;
 }
 
 -(BOOL)checkFields
