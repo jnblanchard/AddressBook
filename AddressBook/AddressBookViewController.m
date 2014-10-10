@@ -13,12 +13,13 @@
 #import "GroupsViewController.h"
 #import "Address.h"
 
-@interface AddressBookViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface AddressBookViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property NSArray* addresses;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property NSMutableArray* persons;
+@property NSIndexPath* curPath;
 @end
 
 @implementation AddressBookViewController
@@ -115,6 +116,23 @@
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Address* person = [self.addresses objectAtIndex:indexPath.row];
+    self.curPath = indexPath;
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Remove contact?" message:[NSString stringWithFormat:@"Are you sure you wish to delete %@'s", person.name] delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self deletePerson:self.curPath];
+    } else {
+        [self.tableView setEditing:NO animated:YES];
+    }
+}
+
+-(void) deletePerson:(NSIndexPath*) indexPath
 {
     Address* person = [self.addresses objectAtIndex:indexPath.row];
     [self.moc deleteObject:person];
