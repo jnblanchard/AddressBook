@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CoreData/CoreData.h"
 
-@interface CreateAddressViewController : UIViewController
+@interface CreateContactViewController : UIViewController
 @property NSManagedObjectContext* moc;
 @end

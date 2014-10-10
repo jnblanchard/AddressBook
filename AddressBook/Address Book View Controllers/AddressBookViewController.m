@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
-#import "GroupsViewController.h"
+#import "AddressBookViewController.h"
 #import "AddressBook.h"
-#import "GroupEditViewController.h"
+#import "EditAddressBookViewController.h"
 
-@interface GroupsViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface AddressBookViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property NSArray* groups;
 @end
 
-@implementation GroupsViewController
+@implementation AddressBookViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,8 +82,8 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController isKindOfClass:[GroupEditViewController class]]) {
-        GroupEditViewController* gvc = segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass:[EditAddressBookViewController class]]) {
+        EditAddressBookViewController* gvc = segue.destinationViewController;
         gvc.moc = self.moc;
         if ([sender isKindOfClass:[UIBarButtonItem class]]) {
             AddressBook* book = [NSEntityDescription insertNewObjectForEntityForName:@"AddressBook" inManagedObjectContext:self.moc];

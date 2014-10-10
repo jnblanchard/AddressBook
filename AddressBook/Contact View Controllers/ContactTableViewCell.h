@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddressBookTableViewCell : UITableViewCell
+@interface ContactTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Address.h"
+#import "Contact.h"
 #import "CoreData/CoreData.h"
 
 @interface DetailViewController : UIViewController
-@property Address* person;
+@property Contact* person;
 @property NSManagedObjectContext* moc;
 @end

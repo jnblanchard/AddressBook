@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13F34" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Address" representedClassName="Address" syncable="YES">
+    <entity name="AddressBook" representedClassName="AddressBook" syncable="YES">
+        <attribute name="isSaved" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="addressBook" inverseEntity="Contact" syncable="YES"/>
+    </entity>
+    <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
-        <relationship name="addressBook" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AddressBook" inverseName="addresses" inverseEntity="AddressBook" syncable="YES"/>
-    </entity>
-    <entity name="AddressBook" representedClassName="AddressBook" syncable="YES">
-        <attribute name="isSaved" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Address" inverseName="addressBook" inverseEntity="Address" syncable="YES"/>
+        <relationship name="addressBook" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AddressBook" inverseName="contacts" inverseEntity="AddressBook" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Address" positionX="-63" positionY="-18" width="128" height="150"/>
-        <element name="AddressBook" positionX="-63" positionY="27" width="128" height="88"/>
+        <element name="AddressBook" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Contact" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

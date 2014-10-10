@@ -7,7 +7,7 @@
         <!--Contacts-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="AddressBookViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ContactViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="72" width="320" height="496"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="166" id="1QD-VL-e3Y" customClass="AddressBookTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="166" id="1QD-VL-e3Y" customClass="ContactTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1QD-VL-e3Y" id="Mmo-Fc-wU2">
@@ -209,7 +209,7 @@
         <!--Address Books-->
         <scene sceneID="bRO-H1-eg8">
             <objects>
-                <viewController id="uH6-hq-nCc" customClass="GroupsViewController" sceneMemberID="viewController">
+                <viewController id="uH6-hq-nCc" customClass="AddressBookViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FUd-7W-1Jr"/>
                         <viewControllerLayoutGuide type="bottom" id="HDg-KS-yzO"/>
@@ -278,10 +278,10 @@
             </objects>
             <point key="canvasLocation" x="733" y="-333"/>
         </scene>
-        <!--Create Address View Controller-->
+        <!--Create Contact View Controller-->
         <scene sceneID="jvw-Ee-SxN">
             <objects>
-                <viewController id="w2y-I3-eVA" customClass="CreateAddressViewController" sceneMemberID="viewController">
+                <viewController id="w2y-I3-eVA" customClass="CreateContactViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fmK-Wo-QZD"/>
                         <viewControllerLayoutGuide type="bottom" id="jjG-uz-Tj0"/>
@@ -339,7 +339,7 @@
         <!--New Group-->
         <scene sceneID="682-is-1qd">
             <objects>
-                <viewController id="A7w-sB-dsa" customClass="GroupEditViewController" sceneMemberID="viewController">
+                <viewController id="A7w-sB-dsa" customClass="EditAddressBookViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rZV-sz-00z"/>
                         <viewControllerLayoutGuide type="bottom" id="iyu-Uo-Nej"/>

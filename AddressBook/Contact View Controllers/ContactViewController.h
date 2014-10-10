@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CoreData/CoreData.h"
 
-@interface AddressBookViewController : UIViewController
+@interface ContactViewController : UIViewController
 @property NSManagedObjectContext* moc;
 - (void) setUpAddressArray;
 @end

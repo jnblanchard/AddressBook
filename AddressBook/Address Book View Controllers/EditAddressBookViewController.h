@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CoreData/CoreData.h"
 #import "AddressBook.h"
-#import "GroupsViewController.h"
+#import "AddressBookViewController.h"
 
-@interface GroupEditViewController : UIViewController
+@interface EditAddressBookViewController : UIViewController
 @property NSManagedObjectContext* moc;
 @property AddressBook* book;
-@property GroupsViewController* gvc;
+@property AddressBookViewController* gvc;
 @end

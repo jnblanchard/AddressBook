@@ -11,7 +11,7 @@
 
 @class AddressBook;
 
-@interface Address : NSManagedObject
+@interface Contact : NSManagedObject
 
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSString * email;
@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSSet *addressBook;
 @end
 
-@interface Address (CoreDataGeneratedAccessors)
+@interface Contact (CoreDataGeneratedAccessors)
 
 - (void)addAddressBookObject:(AddressBook *)value;
 - (void)removeAddressBookObject:(AddressBook *)value;

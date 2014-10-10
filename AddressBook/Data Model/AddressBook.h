@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Address;
+@class Contact;
 
 @interface AddressBook : NSManagedObject
 
@@ -20,8 +20,8 @@
 
 @interface AddressBook (CoreDataGeneratedAccessors)
 
-- (void)addAddressesObject:(Address *)value;
-- (void)removeAddressesObject:(Address *)value;
+- (void)addAddressesObject:(Contact *)value;
+- (void)removeAddressesObject:(Contact *)value;
 - (void)addAddresses:(NSSet *)values;
 - (void)removeAddresses:(NSSet *)values;
 

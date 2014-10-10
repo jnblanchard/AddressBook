@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
-#import "Address.h"
+#import "Contact.h"
 #import "AddressBook.h"
 
 
-@implementation Address
+@implementation Contact
 
 @dynamic address;
 @dynamic email;

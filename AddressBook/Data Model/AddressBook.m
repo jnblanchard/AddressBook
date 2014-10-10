@@ -7,7 +7,7 @@
 //
 
 #import "AddressBook.h"
-#import "Address.h"
+#import "Contact.h"
 
 
 @implementation AddressBook

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CoreData/CoreData.h"
 
-@interface GroupsViewController : UIViewController
+@interface AddressBookViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSManagedObjectContext* moc;
 -(void) setUpAddressBookArray;

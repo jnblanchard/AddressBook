@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
-#import "GroupEditViewController.h"
-#import "GroupsViewController.h"
+#import "EditAddressBookViewController.h"
+#import "AddressBookViewController.h"
 #import "AddressBook.h"
-#import "Address.h"
+#import "Contact.h"
 #import "DetailViewController.h"
 
-@interface GroupEditViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAlertViewDelegate>
+@interface EditAddressBookViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -24,10 +24,10 @@
 @property BOOL editSwitch;
 @property AddressBook* bookCopy;
 @property BOOL okayToEndSwitch;
-@property Address* person;
+@property Contact* person;
 @end
 
-@implementation GroupEditViewController
+@implementation EditAddressBookViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -66,7 +66,7 @@
 {
     self.popArray = [NSMutableArray new];
     self.popFavArray = [NSMutableArray new];
-    for (Address* address in [self.book.addresses allObjects]) {
+    for (Contact* address in [self.book.addresses allObjects]) {
         [self.popArray addObject:address];
         if ([address.isFavorite  isEqual: @1]) {
             [self.popFavArray addObject:address];
@@ -88,7 +88,7 @@
 
 - (void) setUpArrays
 {
-    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Address"];
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Contact"];
     [request setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]]];
     if (![self.searchBar.text isEqualToString:@""]) {
         [request setPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]];
@@ -130,7 +130,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Address* person;
+    Contact* person;
     if (self.editSwitch) {
         person = [self.allArray objectAtIndex:indexPath.row];
         if ([self.popArray containsObject:person]) {
@@ -159,7 +159,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    Address* person;
+    Contact* person;
     if (self.editSwitch) {
         person = [self.allArray objectAtIndex:indexPath.row];
     } else {

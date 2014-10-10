@@ -7,7 +7,7 @@
 //
 
 #import "DetailViewController.h"
-#import "AddressBookViewController.h"
+#import "ContactViewController.h"
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
@@ -122,8 +122,8 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController isKindOfClass:[AddressBookViewController class]]) {
-        AddressBookViewController* avc = segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass:[ContactViewController class]]) {
+        ContactViewController* avc = segue.destinationViewController;
         NSLog(@"exiting - %@", self.person.isFavorite);
         avc.moc = self.moc;
         [avc setUpAddressArray];

@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
-#import "CreateAddressViewController.h"
-#import "AddressBookViewController.h"
-#import "Address.h"
+#import "CreateContactViewController.h"
+#import "ContactViewController.h"
+#import "Contact.h"
 
-@interface CreateAddressViewController ()
+@interface CreateContactViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *addressField;
 @end
 
-@implementation CreateAddressViewController
+@implementation CreateContactViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,14 +31,14 @@
         [self.emailField resignFirstResponder];
         [self.addressField resignFirstResponder];
         [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
-        Address* person = [NSEntityDescription insertNewObjectForEntityForName:@"Address" inManagedObjectContext:self.moc];
+        Contact* person = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.moc];
         person.name = self.nameField.text;
         person.phoneNumber = self.phoneNumberField.text;
         person.email = self.emailField.text;
         person.address = self.addressField.text;
         person.isFavorite = [NSNumber numberWithBool:NO];
         [self.moc save:nil];
-        AddressBookViewController* avc = self.navigationController.viewControllers.firstObject;
+        ContactViewController* avc = self.navigationController.viewControllers.firstObject;
         avc.moc = self.moc;
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {

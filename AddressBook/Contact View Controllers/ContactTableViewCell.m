@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
-#import "AddressBookTableViewCell.h"
+#import "ContactTableViewCell.h"
 
-@implementation AddressBookTableViewCell
+@implementation ContactTableViewCell
 
 
 @end

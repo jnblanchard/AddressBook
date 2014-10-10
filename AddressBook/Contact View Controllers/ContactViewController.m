@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
-#import "AddressBookViewController.h"
-#import "AddressBookTableViewCell.h"
-#import "CreateAddressViewController.h"
+#import "ContactViewController.h"
+#import "ContactTableViewCell.h"
+#import "CreateContactViewController.h"
 #import "DetailViewController.h"
-#import "GroupsViewController.h"
-#import "Address.h"
+#import "AddressBookViewController.h"
+#import "Contact.h"
 
-@interface AddressBookViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIAlertViewDelegate>
+@interface ContactViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property NSArray* addresses;
@@ -22,7 +22,7 @@
 @property NSIndexPath* curPath;
 @end
 
-@implementation AddressBookViewController
+@implementation ContactViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,7 +60,7 @@
 
 - (void) setUpAddressArray
 {
-    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Address"];
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Contact"];
     [request setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]]];
     if (![self.searchBar.text isEqualToString:@""]) {
         [request setPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]];
@@ -85,8 +85,8 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Address* person = [self.addresses objectAtIndex:indexPath.row];
-    AddressBookTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    Contact* person = [self.addresses objectAtIndex:indexPath.row];
+    ContactTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!person.isFavorite) {
         person.isFavorite = [NSNumber numberWithBool:NO];
     }
@@ -117,7 +117,7 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Address* person = [self.addresses objectAtIndex:indexPath.row];
+    Contact* person = [self.addresses objectAtIndex:indexPath.row];
     self.curPath = indexPath;
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Remove contact?" message:[NSString stringWithFormat:@"Are you sure you wish to delete %@'s", person.name] delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Yes", nil];
     [alert show];
@@ -134,7 +134,7 @@
 
 -(void) deletePerson:(NSIndexPath*) indexPath
 {
-    Address* person = [self.addresses objectAtIndex:indexPath.row];
+    Contact* person = [self.addresses objectAtIndex:indexPath.row];
     [self.moc deleteObject:person];
     [self.moc save:nil];
     [self setUpAddressArray];
@@ -147,8 +147,8 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController isKindOfClass:[CreateAddressViewController class]]) {
-        CreateAddressViewController* cvc = segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass:[CreateContactViewController class]]) {
+        CreateContactViewController* cvc = segue.destinationViewController;
         cvc.moc = self.moc;
     }
     if ([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
@@ -157,8 +157,8 @@
         dvc.moc = self.moc;
         dvc.person = [self.addresses objectAtIndex:selected.row];
     }
-    if ([segue.destinationViewController isKindOfClass:[GroupsViewController class]]) {
-        GroupsViewController* gvc = segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass:[AddressBookViewController class]]) {
+        AddressBookViewController* gvc = segue.destinationViewController;
         gvc.moc = self.moc;
     }
 }
