@@ -10,8 +10,6 @@
 	<string>AddressBook</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>2D4C225D836AE0CFEA58C1F70371AABCE3CA5D0D</key>
-		<string>git.assembla.com:cis422f14-team4.git</string>
 		<key>AD10BE9240C2B6E88E2636452C351199205594CB</key>
 		<string>https://github.com/jnblanchard/AddressBook.git</string>
 	</dict>
@@ -19,8 +17,6 @@
 	<string>AddressBook.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>2D4C225D836AE0CFEA58C1F70371AABCE3CA5D0D</key>
-		<string>../../..</string>
 		<key>AD10BE9240C2B6E88E2636452C351199205594CB</key>
 		<string>../..</string>
 	</dict>
@@ -32,14 +28,6 @@
 	<string>AD10BE9240C2B6E88E2636452C351199205594CB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>2D4C225D836AE0CFEA58C1F70371AABCE3CA5D0D</string>
-			<key>IDESourceControlWCCName</key>
-			<string></string>
-		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
