@@ -400,7 +400,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="All"/>
-                                    <segment title="Favorites"/>
+                                    <segment title="Group"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -412,12 +412,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Group" id="kmi-3J-y9Y">
-                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="KD7-IS-Pj8">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="KD7-IS-Pj8">
                             <connections>
                                 <action selector="rewindButtonHit:" destination="A7w-sB-dsa" id="C3K-0u-i3h"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="dXx-QV-e03">
+                        <barButtonItem key="rightBarButtonItem" title="Export" id="dXx-QV-e03">
                             <connections>
                                 <action selector="editButtonHit:" destination="A7w-sB-dsa" id="aHD-xP-6Cg"/>
                             </connections>

@@ -2,7 +2,7 @@
 //  AddressBook.m
 //  AddressBook
 //
-//  Created by John Blanchard on 10/4/14.
+//  Created by John Blanchard on 10/13/14.
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
@@ -14,6 +14,6 @@
 
 @dynamic isSaved;
 @dynamic name;
-@dynamic addresses;
+@dynamic contacts;
 
 @end

@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpView];
-    NSLog(@"entering %d", [self.person.isFavorite  isEqual: @1]);
 }
 
 -(void) setUpView
@@ -103,19 +102,15 @@
         self.favoriteButton.backgroundColor = [UIColor blackColor];
         [self.favoriteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.favoriteButton setTitle:@"Favorite" forState:UIControlStateNormal];
-        NSLog(@"%@", self.person.isFavorite);
         self.person.isFavorite = @0;
         self.favoriteSwitch.on = NO;
-        NSLog(@"off - %@", self.person.isFavorite);
 
     } else {
         self.favoriteButton.backgroundColor = [UIColor whiteColor];
         [self.favoriteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.favoriteButton setTitle:@"Unfavorite" forState:UIControlStateNormal];
-        NSLog(@"%@", self.person.isFavorite);
         self.person.isFavorite = [NSNumber numberWithBool:YES];
         self.favoriteSwitch.on = YES;
-        NSLog(@"on - %@", self.person.isFavorite);
     }
     [self.moc save:nil];
 }
@@ -124,7 +119,6 @@
 {
     if ([segue.destinationViewController isKindOfClass:[ContactViewController class]]) {
         ContactViewController* avc = segue.destinationViewController;
-        NSLog(@"exiting - %@", self.person.isFavorite);
         avc.moc = self.moc;
         [avc setUpAddressArray];
     }

@@ -63,7 +63,7 @@
     AddressBook* book = [self.groups objectAtIndex:indexPath.row];
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.textLabel.text = book.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)book.addresses.count];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)book.contacts.count];
     return cell;
 }
 
@@ -89,7 +89,6 @@
             AddressBook* book = [NSEntityDescription insertNewObjectForEntityForName:@"AddressBook" inManagedObjectContext:self.moc];
             gvc.book = book;
             gvc.gvc = self;
-            NSLog(@"%@", book);
         } else {
             NSIndexPath* path = self.tableView.indexPathForSelectedRow;
             gvc.book = [self.groups objectAtIndex:path.row];

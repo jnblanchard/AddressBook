@@ -11,8 +11,9 @@
 #import "AddressBook.h"
 #import "Contact.h"
 #import "DetailViewController.h"
+#import "MessageUI/MessageUI.h"
 
-@interface EditAddressBookViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAlertViewDelegate>
+@interface EditAddressBookViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -36,6 +37,8 @@
         [self.navigationItem setTitle:self.book.name];
         self.nameTextField.text = self.book.name;
     }
+    self.segmentedControl.selectedSegmentIndex = 1;
+    [self.tableView reloadData];
     self.okayToEndSwitch = YES;
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
@@ -66,9 +69,10 @@
 {
     self.popArray = [NSMutableArray new];
     self.popFavArray = [NSMutableArray new];
-    for (Contact* address in [self.book.addresses allObjects]) {
-        [self.popArray addObject:address];
-        if ([address.isFavorite  isEqual: @1]) {
+    NSFetchRequest* request = [[NSFetchRequest alloc] initWithEntityName:@"Contact"];
+    self.popArray = [[self.moc executeFetchRequest:request error:nil] mutableCopy];
+    if (self.book.contacts.count > 0) {
+        for (Contact* address in [self.book.contacts allObjects]) {
             [self.popFavArray addObject:address];
         }
     }
@@ -108,70 +112,125 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    if (self.editSwitch) {
-        [self setUpArrays];
-    } else {
-        [self searchResultsAndReload];
+    [self searchResultsAndReload];
+//    if (self.editSwitch) {
+//        [self setUpArrays];
+//    } else {
+//        [self searchResultsAndReload];
+//    }
+}
+
+- (NSString*) createEmailBookString
+{
+    NSString* message = @"";
+    for (Contact* contact in self.popFavArray ) {
+        NSLog(@"%@", contact);
+        message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", contact.name]];
+        message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n\n", contact.address]];
     }
+    return message;
 }
 
 - (IBAction)editButtonHit:(UIBarButtonItem *)sender
 {
-    if([sender.title isEqualToString:@"Edit"]) {
-        sender.title = @"Done";
-        self.editSwitch = 1;
-        [self setUpArrays];
-    } else {
-        sender.title = @"Edit";
-        self.editSwitch = 0;
-        [self.tableView reloadData];
+    // Email Subject
+    NSString *emailTitle = [NSString stringWithFormat:@"%@ address book", self.book.name];
+    // Email Content
+    NSString *messageBody = [self createEmailBookString];
+    // To address
+    NSArray *toRecipents = [NSArray arrayWithObject:@"jnblanchard@mac.com"];
+
+    MFMailComposeViewController *mc = [MFMailComposeViewController new];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:toRecipents];
+
+    // Present mail view controller on screen
+    [self presentViewController:mc animated:YES completion:NULL];
+
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
     }
+
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Contact* person;
-    if (self.editSwitch) {
-        person = [self.allArray objectAtIndex:indexPath.row];
-        if ([self.popArray containsObject:person]) {
-            [self.popArray removeObject:person];
-            [self.book removeAddressesObject:person];
-            NSLog(@"Editing popArray contains person");
-        } else {
-            [self.popArray addObject:person];
-            [self.book addAddressesObject:person];
-            NSLog(@"Editing popArray NO person");
-        }
-        [self.tableView reloadData];
-    } else {
+    //    if (self.editSwitch) {
+    //        person = [self.allArray objectAtIndex:indexPath.row];
+    //        if ([self.popArray containsObject:person]) {
+    //            [self.popArray removeObject:person];
+    //            [self.book removeContactsObject:person];
+    //        } else {
+    //            [self.popArray addObject:person];
+    //            [self.book addContactsObject:person];
+    //        }
+    //        [self.tableView reloadData];
+    //    } else {
+    if(self.segmentedControl.selectedSegmentIndex == 0) {
         person = [self.popArray objectAtIndex:indexPath.row];
-        [self.popArray removeObject:person];
-        [self.book removeAddressesObject:person];
+        if ([self.book.contacts containsObject:person]) {
+            [self.book removeContactsObject:person];
+            [self.popFavArray removeObject:person];
+            [self.tableView reloadData];
+
+        } else {
+            [self.book addContactsObject:person];
+            [self.popFavArray addObject:person];
+            [self.tableView reloadData];
+        }
+
+    } else {
+        person = [self.popFavArray objectAtIndex:indexPath.row];
+        [self.book removeContactsObject:person];
+        [self.popFavArray removeObject:person];
         [self.tableView reloadData];
     }
-    if (![self.book.addresses isEqual:self.bookCopy.addresses]) {
+    if (![self.book.contacts isEqual:self.bookCopy.contacts]) {
         self.okayToEndSwitch = NO;
     } else {
         self.okayToEndSwitch = YES;
     }
 }
 
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
     Contact* person;
-    if (self.editSwitch) {
-        person = [self.allArray objectAtIndex:indexPath.row];
+    //    if (self.editSwitch) {
+    //        person = [self.allArray objectAtIndex:indexPath.row];
+    //    } else {
+    if (self.segmentedControl.selectedSegmentIndex == 1) {
+        person = [self.popFavArray objectAtIndex:indexPath.row];
     } else {
-        if (self.segmentedControl.selectedSegmentIndex == 1) {
-            person = [self.popFavArray objectAtIndex:indexPath.row];
-        } else {
-            person = [self.popArray objectAtIndex:indexPath.row];
-        }
+        person = [self.popArray objectAtIndex:indexPath.row];
     }
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.textLabel.text = person.name;
-    if ([self.popArray containsObject:person]) {
+    if ([self.book.contacts containsObject:person]) {
         cell.detailTextLabel.text = @"X";
     } else {
         cell.detailTextLabel.text = @"";
@@ -197,14 +256,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.editSwitch) {
-        return self.allArray.count;
+//    if (self.editSwitch) {
+//        return self.allArray.count;
+//    } else {
+    if (self.segmentedControl.selectedSegmentIndex == 1) {
+        return self.popFavArray.count;
     } else {
-        if (self.segmentedControl.selectedSegmentIndex == 1) {
-            return self.popFavArray.count;
-        } else {
-            return self.popArray.count;
-        }
+        return self.popArray.count;
     }
 }
 
@@ -215,7 +273,6 @@
             self.book.name = [alertView textFieldAtIndex:0].text;
             self.nameTextField.text = self.book.name;
             [self.moc save:nil];
-            NSLog(@"here");
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
@@ -224,10 +281,8 @@
             self.editDoneButton.title = @"Done";
             self.editSwitch = 1;
             [self setUpArrays];
-            NSLog(@"here");
             [self checkEmptyAddressBookName];
         } else {
-            NSLog(@"here part2");
             self.editDoneButton.title = @"Edit";
             self.editSwitch = 0;
             self.book = self.bookCopy;
@@ -258,7 +313,7 @@
 
 - (IBAction)rewindButtonHit:(UIBarButtonItem *)sender
 {
-    if (self.book.addresses.count > 0) {
+    if (self.book.contacts.count > 0) {
         if (!self.editSwitch) {
             [self.gvc setUpAddressBookArray];
             [self checkEmptyAddressBookName];
@@ -287,14 +342,10 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.editSwitch) {
-        self.person = [self.allArray objectAtIndex:indexPath.row];
+    if (self.segmentedControl.selectedSegmentIndex == 1) {
+        self.person = [self.popFavArray objectAtIndex:indexPath.row];
     } else {
-        if (self.segmentedControl.selectedSegmentIndex == 1) {
-            self.person = [self.popFavArray objectAtIndex:indexPath.row];
-        } else {
-            self.person = [self.popArray objectAtIndex:indexPath.row];
-        }
+        self.person = [self.popArray objectAtIndex:indexPath.row];
     }
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
