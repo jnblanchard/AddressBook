@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="K0l-9A-WLR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="acn-uS-do6">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -107,13 +107,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="UBv-ji-YDD">
-                        <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="MS7-vK-PHa">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="editButtonPressed:" destination="vXZ-lx-hvc" id="YhV-Im-X9o"/>
-                                <segue destination="uH6-hq-nCc" kind="push" id="lld-dw-2P5"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="thq-L1-asM">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -263,6 +256,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Address Books" id="lyi-hn-QD4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="cmT-Y7-rRL">
+                            <connections>
+                                <segue destination="vXZ-lx-hvc" kind="push" id="xBv-X7-HdO"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="oeB-WT-U7Z">
                             <connections>
                                 <segue destination="A7w-sB-dsa" kind="push" id="1PT-a5-6B2"/>
@@ -276,7 +274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16d-Mz-0zl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="733" y="-333"/>
+            <point key="canvasLocation" x="1265" y="-333"/>
         </scene>
         <!--Create Contact View Controller-->
         <scene sceneID="jvw-Ee-SxN">
@@ -334,7 +332,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eOe-96-CDj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1381" y="-96"/>
+            <point key="canvasLocation" x="1913" y="-96"/>
         </scene>
         <!--New Group-->
         <scene sceneID="682-is-1qd">
@@ -435,25 +433,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnB-YU-pvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1170" y="-734"/>
+            <point key="canvasLocation" x="1702" y="-734"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="C4x-BS-BFU">
+        <scene sceneID="t97-sv-aGP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K0l-9A-WLR" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="acn-uS-do6" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hTT-f3-K8I">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KKz-te-t3Q">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="hfU-T2-pBn"/>
+                        <segue destination="uH6-hq-nCc" kind="relationship" relationship="rootViewController" id="mbd-LD-lnT"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GyG-Ms-g3j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bKp-kW-ChO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="234" y="350"/>
+            <point key="canvasLocation" x="733" y="-333"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -462,8 +460,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Dl4-La-VrT"/>
+        <segue reference="xCe-vT-hQ2"/>
         <segue reference="kkc-V3-cVs"/>
-        <segue reference="6p2-8N-mpO"/>
+        <segue reference="u4m-LI-pbs"/>
     </inferredMetricsTieBreakers>
 </document>

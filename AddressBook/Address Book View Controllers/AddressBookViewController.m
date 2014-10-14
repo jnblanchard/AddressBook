@@ -9,6 +9,7 @@
 #import "AddressBookViewController.h"
 #import "AddressBook.h"
 #import "EditAddressBookViewController.h"
+#import "ContactViewController.h"
 
 @interface AddressBookViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -93,6 +94,10 @@
             NSIndexPath* path = self.tableView.indexPathForSelectedRow;
             gvc.book = [self.groups objectAtIndex:path.row];
         }
+    }
+    if ([segue.destinationViewController isKindOfClass:[ContactViewController class]]) {
+        ContactViewController* cvc = segue.destinationViewController;
+        cvc.moc = self.moc;
     }
 }
 
