@@ -7,13 +7,14 @@
 //
 
 #import "EditAddressBookViewController.h"
+#import "CreateContactViewController.h"
 #import "AddressBookViewController.h"
 #import "AddressBook.h"
 #import "Contact.h"
 #import "DetailViewController.h"
 #import "MessageUI/MessageUI.h"
 
-@interface EditAddressBookViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate>
+@interface EditAddressBookViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -133,22 +134,36 @@
 
 - (IBAction)editButtonHit:(UIBarButtonItem *)sender
 {
-    // Email Subject
-    NSString *emailTitle = [NSString stringWithFormat:@"%@ address book", self.book.name];
-    // Email Content
-    NSString *messageBody = [self createEmailBookString];
-    // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"jnblanchard@mac.com"];
+    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Actions for %@ address book", self.navigationItem.title] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Contact", @"Import Contact", @"Export Address Book", nil];
+    [sheet showInView:self.view];
 
-    MFMailComposeViewController *mc = [MFMailComposeViewController new];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:toRecipents];
+}
 
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
-
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex == 0){
+        [self performSegueWithIdentifier:@"create" sender:self];
+    }
+    if(buttonIndex == 1) {
+        NSLog(@"import contact");
+    }
+    if(buttonIndex == 2) {
+            // Email Subject
+            NSString *emailTitle = [NSString stringWithFormat:@"%@ address book", self.book.name];
+            // Email Content
+            NSString *messageBody = [self createEmailBookString];
+            // To address
+            NSArray *toRecipents = [NSArray arrayWithObject:@"jnblanchard@mac.com"];
+        
+            MFMailComposeViewController *mc = [MFMailComposeViewController new];
+            mc.mailComposeDelegate = self;
+            [mc setSubject:emailTitle];
+            [mc setMessageBody:messageBody isHTML:NO];
+            [mc setToRecipients:toRecipents];
+        
+            // Present mail view controller on screen
+            [self presentViewController:mc animated:YES completion:NULL];
+    }
 }
 
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
@@ -352,8 +367,16 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    DetailViewController* dvc = segue.destinationViewController;
-    dvc.person = self.person;
+    if([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
+        DetailViewController* dvc = segue.destinationViewController;
+        dvc.person = self.person;
+    }
+    if([segue.destinationViewController isKindOfClass:[CreateContactViewController class]]) {
+        CreateContactViewController* cvc = segue.destinationViewController;
+        cvc.book = self.book;
+        cvc.moc = self.moc;
+    }
+
 }
 
 @end

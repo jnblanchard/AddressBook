@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddressBook.h"
 #import "CoreData/CoreData.h"
 
 @interface CreateContactViewController : UIViewController
 @property NSManagedObjectContext* moc;
+@property AddressBook* book;
 @end

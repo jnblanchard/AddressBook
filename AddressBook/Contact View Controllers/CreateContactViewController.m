@@ -37,10 +37,13 @@
         person.email = self.emailField.text;
         person.address = self.addressField.text;
         person.isFavorite = [NSNumber numberWithBool:NO];
+        if(self.book) {
+            [self.book addContactsObject:person]; 
+        }
         [self.moc save:nil];
         ContactViewController* avc = self.navigationController.viewControllers.firstObject;
         avc.moc = self.moc;
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     } else {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Missing information for the new contact" message:[self missingMessage] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
         [alert show];
