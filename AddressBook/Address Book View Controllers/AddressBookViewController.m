@@ -49,6 +49,8 @@
     [request setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]]];
     if (![self.searchBar.text isEqualToString:@""]) {
         [request setPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]];
+    } else {
+        [self.searchBar resignFirstResponder];
     }
     self.groups = [self.moc executeFetchRequest:request error:nil];
     [self.tableView reloadData];

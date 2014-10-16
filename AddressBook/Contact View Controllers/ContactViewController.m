@@ -69,6 +69,8 @@
     [request setSortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES]]];
     if (![self.searchBar.text isEqualToString:@""]) {
         [request setPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]];
+    } else {
+        [self.searchBar resignFirstResponder];
     }
     if (self.segmentedControl.selectedSegmentIndex == 1) {
         NSPredicate* predicate = [NSPredicate predicateWithFormat:@"isFavorite == YES"];

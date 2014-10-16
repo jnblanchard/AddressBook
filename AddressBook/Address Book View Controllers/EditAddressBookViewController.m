@@ -94,6 +94,8 @@
     if (![self.searchBar.text isEqualToString:@""]) {
         self.popArray = [[self.popArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]] mutableCopy];
         self.popFavArray = [[self.popFavArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[c] %@", self.searchBar.text]] mutableCopy];
+    } else {
+        [self.searchBar resignFirstResponder];
     }
     [self.tableView reloadData];
 }
