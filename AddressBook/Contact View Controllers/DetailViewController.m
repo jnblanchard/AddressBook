@@ -23,6 +23,7 @@
 @property UIView* maskView;
 @property UIPickerView* _providerPickerView;
 @property UIToolbar *_providerToolbar;
+@property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property NSArray* states;
 @end
 
@@ -62,6 +63,7 @@
     self.addressField.userInteractionEnabled = NO;
     self.lastNameField.userInteractionEnabled = NO;
     self.stateButton.userInteractionEnabled = NO;
+    self.cityField.userInteractionEnabled = NO;
     UIColor *color = [UIColor lightGrayColor];
     self.nameField.attributedPlaceholder =
     [[NSAttributedString alloc]
@@ -82,6 +84,10 @@
     self.addressField.attributedPlaceholder =
     [[NSAttributedString alloc]
      initWithString:self.person.address
+     attributes:@{NSForegroundColorAttributeName:color}];
+    self.cityField.attributedPlaceholder =
+    [[NSAttributedString alloc]
+     initWithString:self.person.city
      attributes:@{NSForegroundColorAttributeName:color}];
     [self.stateButton setTitle:self.person.state forState:UIControlStateNormal];
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
@@ -116,7 +122,7 @@
         self.zipField.userInteractionEnabled = YES;
         self.stateButton.userInteractionEnabled = YES;
         self.lastNameField.userInteractionEnabled = YES;
-
+        self.cityField.userInteractionEnabled = YES;
         self.addressField.userInteractionEnabled = YES;
     } else {
         [self.barButton setTitle:@"Edit"];
@@ -126,6 +132,7 @@
         self.addressField.userInteractionEnabled = NO;
         self.lastNameField.userInteractionEnabled = NO;
         self.stateButton.userInteractionEnabled = NO;
+        self.cityField.userInteractionEnabled = NO;
         if (![self.nameField.text isEqualToString:@""]) {
             self.person.firstName = self.nameField.text;
         }
@@ -143,6 +150,9 @@
         }
         if (![self.stateButton.titleLabel.text isEqualToString:@"State"]) {
             self.person.state = self.stateButton.titleLabel.text;
+        }
+        if (![self.cityField.text isEqualToString:@""]) {
+            self.person.city = self.cityField.text;
         }
         [self.moc save:nil];
     }

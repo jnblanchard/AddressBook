@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSString * state;
 @property (nonatomic, retain) NSString * zip;
 @property (nonatomic, retain) NSString * firstName;
+@property (nonatomic, retain) NSString * city;
 @property (nonatomic, retain) NSSet *addressBook;
 @end
 

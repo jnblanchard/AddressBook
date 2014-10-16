@@ -22,6 +22,7 @@
 @dynamic state;
 @dynamic zip;
 @dynamic firstName;
+@dynamic city;
 @dynamic addressBook;
 
 @end

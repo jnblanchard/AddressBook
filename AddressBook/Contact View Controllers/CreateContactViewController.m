@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 @property (weak, nonatomic) IBOutlet UITextField *zipField;
+@property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property (weak, nonatomic) IBOutlet UIButton *stateButton;
 @property (weak, nonatomic) IBOutlet UITextField *addressField;
 @property UIView* maskView;
@@ -53,6 +54,12 @@
 
 - (IBAction)stateButtonPressed:(UIButton*)sender
 {
+    [self.nameField resignFirstResponder];
+    [self.phoneNumberField resignFirstResponder];
+    [self.addressField resignFirstResponder];
+    [self.lastNameField resignFirstResponder];
+    [self.zipField resignFirstResponder];
+    [self.cityField resignFirstResponder];
     [self createPickerView];
 
 }
@@ -65,6 +72,7 @@
         [self.addressField resignFirstResponder];
         [self.lastNameField resignFirstResponder];
         [self.zipField resignFirstResponder];
+        [self.cityField resignFirstResponder];
         [[UIBarButtonItem appearance] setTintColor:[UIColor redColor]];
         self.navigationController.navigationBar.tintColor = [UIColor redColor];
         Contact* person = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.moc];
@@ -75,6 +83,7 @@
         person.state = self.stateButton.titleLabel.text;
         person.phoneNumber = self.phoneNumberField.text;
         person.address = self.addressField.text;
+        person.city = self.cityField.text;
         person.isFavorite = [NSNumber numberWithBool:NO];
         if(self.book) {
             [self.book addContactsObject:person]; 
@@ -111,8 +120,12 @@
         message = [message stringByAppendingString:@"Enter a last name\n"];
     }
     if ([self.stateButton.titleLabel.text isEqualToString:@""]) {
-        message = [message stringByAppendingString:@"Click State button and select state"];
+        message = [message stringByAppendingString:@"Click State button and select state\n"];
     }
+    if ([self.cityField.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Enter a city"];
+    }
+
     return message;
 }
 
@@ -127,7 +140,7 @@
 
 -(BOOL)checkFields
 {
-    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""]) {
+    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""] && ![self.cityField.text isEqualToString:@""]) {
         return YES;
     } else {
         return NO;

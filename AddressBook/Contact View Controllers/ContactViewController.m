@@ -101,9 +101,9 @@
     cell.nameLabel.textColor = [UIColor blackColor];
     cell.phoneLabel.text = person.phoneNumber;
     cell.phoneLabel.textColor = [UIColor blackColor];
-    cell.emailLabel.text = [NSString stringWithFormat:@"%@, US, %@", person.state, person.zip];
+    cell.emailLabel.text = person.address;
     cell.emailLabel.textColor = [UIColor blackColor];
-    cell.addressLabel.text = person.address;
+    cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@", person.city, person.state, person.zip];
     cell.addressLabel.textColor = [UIColor blackColor];
     cell.photoImageView.image = [UIImage imageNamed:@"placeholder"];
     return cell;

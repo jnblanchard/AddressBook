@@ -18,7 +18,7 @@
 		0B1265F719DF1FB70062FA05 /* CreateContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1265F619DF1FB60062FA05 /* CreateContactViewController.m */; };
 		0B1265FC19DF21E70062FA05 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1265FB19DF21E70062FA05 /* CoreData.framework */; };
 		0B1265FF19DF24BA0062FA05 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1265FE19DF24BA0062FA05 /* DetailViewController.m */; };
-		0B2BA3E819EF1DD400EDBB73 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2BA3E719EF1DD400EDBB73 /* Contact.m */; };
+		0B2BA3EB19EF475B00EDBB73 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2BA3EA19EF475B00EDBB73 /* Contact.m */; };
 		0B6E1A2E19DF59CB005E562C /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E1A2D19DF59CB005E562C /* ContactTableViewCell.m */; };
 		0B83EC6D19E08E8A005327A0 /* AddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B83EC6C19E08E8A005327A0 /* AddressBookViewController.m */; };
 		0B83EC7319E096F8005327A0 /* EditAddressBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B83EC7219E096F8005327A0 /* EditAddressBookViewController.m */; };
@@ -56,8 +56,8 @@
 		0B1265FB19DF21E70062FA05 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0B1265FD19DF24BA0062FA05 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = "Contact View Controllers/DetailViewController.h"; sourceTree = "<group>"; };
 		0B1265FE19DF24BA0062FA05 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = "Contact View Controllers/DetailViewController.m"; sourceTree = "<group>"; };
-		0B2BA3E619EF1DD400EDBB73 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
-		0B2BA3E719EF1DD400EDBB73 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		0B2BA3E919EF475B00EDBB73 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Contact.h; path = "Data Model/Contact.h"; sourceTree = "<group>"; };
+		0B2BA3EA19EF475B00EDBB73 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Contact.m; path = "Data Model/Contact.m"; sourceTree = "<group>"; };
 		0B6E1A2C19DF59CB005E562C /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactTableViewCell.h; path = "Contact View Controllers/ContactTableViewCell.h"; sourceTree = "<group>"; };
 		0B6E1A2D19DF59CB005E562C /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactTableViewCell.m; path = "Contact View Controllers/ContactTableViewCell.m"; sourceTree = "<group>"; };
 		0B83EC6B19E08E8A005327A0 /* AddressBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressBookViewController.h; path = "Address Book View Controllers/AddressBookViewController.h"; sourceTree = "<group>"; };
@@ -157,8 +157,8 @@
 				0B1265D019DF1C700062FA05 /* AddressBook.xcdatamodeld */,
 				0BC612FE19EC504A004B81A1 /* AddressBook.h */,
 				0BC612FF19EC504B004B81A1 /* AddressBook.m */,
-				0B2BA3E619EF1DD400EDBB73 /* Contact.h */,
-				0B2BA3E719EF1DD400EDBB73 /* Contact.m */,
+				0B2BA3E919EF475B00EDBB73 /* Contact.h */,
+				0B2BA3EA19EF475B00EDBB73 /* Contact.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -293,7 +293,7 @@
 				0B6E1A2E19DF59CB005E562C /* ContactTableViewCell.m in Sources */,
 				0B1265F719DF1FB70062FA05 /* CreateContactViewController.m in Sources */,
 				0B1265D219DF1C700062FA05 /* AddressBook.xcdatamodeld in Sources */,
-				0B2BA3E819EF1DD400EDBB73 /* Contact.m in Sources */,
+				0B2BA3EB19EF475B00EDBB73 /* Contact.m in Sources */,
 				0B83EC6D19E08E8A005327A0 /* AddressBookViewController.m in Sources */,
 				0B1265CF19DF1C700062FA05 /* AppDelegate.m in Sources */,
 				0B1265F419DF1CC90062FA05 /* ContactViewController.m in Sources */,

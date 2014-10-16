@@ -37,6 +37,12 @@
     if (![self.book.name isEqual:nil]) {
         [self.navigationItem setTitle:self.book.name];
         self.nameTextField.text = self.book.name;
+    } else {
+        UIColor *color = [UIColor lightGrayColor];
+        self.nameTextField.attributedPlaceholder =
+        [[NSAttributedString alloc]
+         initWithString:@"address book name"
+         attributes:@{NSForegroundColorAttributeName:color}];
     }
     self.segmentedControl.selectedSegmentIndex = 1;
     [self.tableView reloadData];
@@ -129,6 +135,7 @@
         NSLog(@"%@", contact);
         message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", contact.name]];
         message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n\n", contact.address]];
+        message = [message stringByAppendingString:[NSString stringWithFormat:@"%@ %@ %@", contact.city, contact.state, contact.zip]];
     }
     return message;
 }
@@ -256,6 +263,9 @@
 
 - (IBAction)nameTextFieldDoneEditing:(UITextField*)sender
 {
+    if ([sender.text isEqualToString:@""] && [self.bookCopy.name isEqual:nil]) {
+        self.book.name = self.bookCopy.name;
+    }
     self.book.name = sender.text;
     [self.moc save:nil];
 }
