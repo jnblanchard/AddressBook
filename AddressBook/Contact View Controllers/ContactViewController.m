@@ -58,6 +58,10 @@
     [self setUpAddressArray];
 }
 
+- (IBAction)popBackButtonPressed:(UIBarButtonItem *)sender {
+    [self.searchBar resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void) setUpAddressArray
 {

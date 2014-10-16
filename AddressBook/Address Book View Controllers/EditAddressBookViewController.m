@@ -34,7 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.bookCopy = self.book;
-    if (![self.book.name isEqual:nil]) {
+    [self.navigationItem setTitle:@"New Address Book"];
+    if (![self.book isEqual:nil]) {
         [self.navigationItem setTitle:self.book.name];
         self.nameTextField.text = self.book.name;
     } else {
@@ -142,7 +143,7 @@
 
 - (IBAction)editButtonHit:(UIBarButtonItem *)sender
 {
-    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Actions for %@ address book", self.navigationItem.title] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Contact", @"Import Contact", @"Export Address Book", nil];
+    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Actions for %@ address book", self.navigationItem.title] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Contact", @"Import Contact", @"Export Address Book", @"Delete Address Book", @"Rename Address Book", nil];
     [sheet showInView:self.view];
 
 }
@@ -171,6 +172,18 @@
         
             // Present mail view controller on screen
             [self presentViewController:mc animated:YES completion:NULL];
+    }
+    if (buttonIndex == 3) {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Deletion in progress" message:[NSString stringWithFormat:@"Do you really wish to delete %@", self.book.name] delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+        alert.tag = 8;
+        [alert show];
+
+    }
+    if (buttonIndex == 4) {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Change Address Book Title" message:@"Enter a new group title" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Accept", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alert.tag = 9;
+        [alert show];
     }
 }
 
@@ -302,6 +315,14 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+    if (alertView.tag == 9) {
+        if (buttonIndex == 1) {
+            self.book.name = [alertView textFieldAtIndex:0].text;
+            self.nameTextField.text = self.book.name;
+            [self.navigationItem setTitle:self.book.name];
+            [self.moc save:nil];
+        }
+    }
     if (alertView.tag == 2) {
         if (buttonIndex == 1) {
             self.editDoneButton.title = @"Done";
@@ -322,6 +343,11 @@
             [self.moc save:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }
+    }
+    if (alertView.tag == 8) {
+        [self.moc deleteObject:self.book];
+        [self.moc save:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
