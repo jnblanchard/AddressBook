@@ -28,7 +28,7 @@
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.tableView.layer.borderWidth = 2.0f;
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
     self.searchBar.layer.borderColor = [UIColor blackColor].CGColor;
@@ -44,6 +44,7 @@
     self.searchBar.barTintColor = [UIColor whiteColor];
     self.searchBar.backgroundColor = [UIColor whiteColor];
     self.searchBar.barStyle = UIBarStyleDefault;
+    [[UIBarButtonItem appearance] setTintColor:[UIColor redColor]];
     self.persons = [NSMutableArray new];
 }
 
@@ -100,7 +101,7 @@
     cell.nameLabel.textColor = [UIColor blackColor];
     cell.phoneLabel.text = person.phoneNumber;
     cell.phoneLabel.textColor = [UIColor blackColor];
-    cell.emailLabel.text = person.email;
+    cell.emailLabel.text = [NSString stringWithFormat:@"%@, US, %@", person.state, person.zip];
     cell.emailLabel.textColor = [UIColor blackColor];
     cell.addressLabel.text = person.address;
     cell.addressLabel.textColor = [UIColor blackColor];

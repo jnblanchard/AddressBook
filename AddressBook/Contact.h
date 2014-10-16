@@ -2,7 +2,7 @@
 //  Contact.h
 //  AddressBook
 //
-//  Created by John Blanchard on 10/13/14.
+//  Created by John Blanchard on 10/15/14.
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
@@ -19,6 +19,10 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * phoneNumber;
 @property (nonatomic, retain) NSData * photo;
+@property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * state;
+@property (nonatomic, retain) NSString * zip;
+@property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSSet *addressBook;
 @end
 

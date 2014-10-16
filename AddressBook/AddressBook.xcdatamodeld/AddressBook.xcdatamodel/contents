@@ -8,14 +8,18 @@
     <entity name="Contact" representedClassName="Contact" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="addressBook" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AddressBook" inverseName="contacts" inverseEntity="AddressBook" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AddressBook" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Contact" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="AddressBook" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Contact" positionX="0" positionY="0" width="128" height="210"/>
     </elements>
 </model>

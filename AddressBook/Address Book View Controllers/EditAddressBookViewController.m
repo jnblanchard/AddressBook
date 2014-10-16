@@ -45,6 +45,7 @@
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
     self.tableView.layer.borderWidth = 2.0f;
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+    self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.searchBar.layer.borderColor = [UIColor blackColor].CGColor;
     self.searchBar.layer.borderWidth = 2.0;
     for (UIView *subview in self.searchBar.subviews) {

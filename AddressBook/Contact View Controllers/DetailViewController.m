@@ -9,14 +9,21 @@
 #import "DetailViewController.h"
 #import "ContactViewController.h"
 
-@interface DetailViewController ()
+@interface DetailViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
-@property (weak, nonatomic) IBOutlet UITextField *phoneField;
-@property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
+@property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
+@property (weak, nonatomic) IBOutlet UITextField *addressField;
+@property (weak, nonatomic) IBOutlet UIButton *stateButton;
+@property (weak, nonatomic) IBOutlet UITextField *zipField;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UISwitch *favoriteSwitch;
-@property (weak, nonatomic) IBOutlet UITextField *addressField;
+@property UIView* maskView;
+@property UIPickerView* _providerPickerView;
+@property UIToolbar *_providerToolbar;
+@property NSArray* states;
 @end
 
 @implementation DetailViewController
@@ -24,31 +31,60 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpView];
+    self.states = @[@"AL",@"AK",@"AZ",@"AR",@"CA",@"CO",@"CT",@"DE",@"FL",@"GA",@"HI",@"ID",@"IL",@"IN",@"IA",@"KS",@"KY",@"LA",@"ME",@"MD",@"MA",@"MI",@"MN",@"MS",@"MO",@"MT",@"NE",@"NV",@"NH",@"NJ",@"NM",@"NY",@"NC",@"ND",@"OH",@"OK",@"OR",@"PA",@"RI",@"SC",@"SD",@"TN",@"TX",@"UT",@"VT",@"VA",@"WA",@"WV",@"WI",@"WY"];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    [self.stateButton setTitle:[self.states objectAtIndex:row] forState:UIControlStateNormal];
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return 50;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self.states objectAtIndex:row];
 }
 
 -(void) setUpView
 {
     self.nameField.userInteractionEnabled = NO;
-    self.phoneField.userInteractionEnabled = NO;
-    self.emailField.userInteractionEnabled = NO;
+    self.phoneNumber.userInteractionEnabled = NO;
+    self.zipField.userInteractionEnabled = NO;
     self.addressField.userInteractionEnabled = NO;
-    UIColor *color = [UIColor blackColor];
+    self.lastNameField.userInteractionEnabled = NO;
+    self.stateButton.userInteractionEnabled = NO;
+    UIColor *color = [UIColor lightGrayColor];
     self.nameField.attributedPlaceholder =
     [[NSAttributedString alloc]
-     initWithString:self.person.name
+     initWithString:self.person.firstName
      attributes:@{NSForegroundColorAttributeName:color}];
-    self.phoneField.attributedPlaceholder =
+    self.lastNameField.attributedPlaceholder =
+    [[NSAttributedString alloc]
+     initWithString:self.person.lastName
+     attributes:@{NSForegroundColorAttributeName:color}];
+    self.phoneNumber.attributedPlaceholder =
     [[NSAttributedString alloc]
      initWithString:self.person.phoneNumber
      attributes:@{NSForegroundColorAttributeName:color}];
-    self.emailField.attributedPlaceholder =
+    self.zipField.attributedPlaceholder =
     [[NSAttributedString alloc]
-     initWithString:self.person.email
+     initWithString:self.person.zip
      attributes:@{NSForegroundColorAttributeName:color}];
     self.addressField.attributedPlaceholder =
     [[NSAttributedString alloc]
      initWithString:self.person.address
      attributes:@{NSForegroundColorAttributeName:color}];
+    [self.stateButton setTitle:self.person.state forState:UIControlStateNormal];
+    self.navigationController.navigationBar.tintColor = [UIColor redColor];
     if (!self.person.isFavorite) {
         self.person.isFavorite = [NSNumber numberWithBool:NO];
         [self.moc save:nil];
@@ -66,31 +102,47 @@
     }
 }
 
+- (IBAction)stateButtonPressed:(id)sender
+{
+    [self createPickerView];
+}
+
 - (IBAction)editButtonPressed:(UIBarButtonItem*)sender
 {
     if (!self.nameField.userInteractionEnabled) {
         [self.barButton setTitle:@"Done"];
         self.nameField.userInteractionEnabled = YES;
-        self.phoneField.userInteractionEnabled = YES;
-        self.emailField.userInteractionEnabled = YES;
+        self.phoneNumber.userInteractionEnabled = YES;
+        self.zipField.userInteractionEnabled = YES;
+        self.stateButton.userInteractionEnabled = YES;
+        self.lastNameField.userInteractionEnabled = YES;
+
         self.addressField.userInteractionEnabled = YES;
     } else {
         [self.barButton setTitle:@"Edit"];
         self.nameField.userInteractionEnabled = NO;
-        self.phoneField.userInteractionEnabled = NO;
-        self.emailField.userInteractionEnabled = NO;
+        self.phoneNumber.userInteractionEnabled = NO;
+        self.zipField.userInteractionEnabled = NO;
         self.addressField.userInteractionEnabled = NO;
+        self.lastNameField.userInteractionEnabled = NO;
+        self.stateButton.userInteractionEnabled = NO;
         if (![self.nameField.text isEqualToString:@""]) {
-            self.person.name = self.nameField.text;
+            self.person.firstName = self.nameField.text;
         }
-        if (![self.phoneField.text isEqualToString:@""]) {
-            self.person.phoneNumber = self.phoneField.text;
+        if (![self.lastNameField.text isEqualToString:@""]) {
+            self.person.lastName = self.lastNameField.text;
         }
-        if (![self.emailField.text isEqualToString:@""]) {
-            self.person.email = self.emailField.text;
+        if (![self.phoneNumber.text isEqualToString:@""]) {
+            self.person.phoneNumber = self.phoneNumber.text;
+        }
+        if (![self.zipField.text isEqualToString:@""]) {
+            self.person.zip = self.zipField.text;
         }
         if (![self.addressField.text isEqualToString:@""]) {
             self.person.address = self.addressField.text;
+        }
+        if (![self.stateButton.titleLabel.text isEqualToString:@"State"]) {
+            self.person.state = self.stateButton.titleLabel.text;
         }
         [self.moc save:nil];
     }
@@ -113,6 +165,35 @@
         self.favoriteSwitch.on = YES;
     }
     [self.moc save:nil];
+}
+
+- (void) createPickerView {
+    self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    [self.maskView setBackgroundColor:[UIColor clearColor]];
+
+    [self.view addSubview:self.maskView];
+    self._providerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 344, self.view.bounds.size.width, 44)];
+
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissActionSheet:)];
+    self._providerToolbar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], done];
+    [self._providerToolbar setTintColor:[UIColor whiteColor]];
+    self._providerToolbar.barStyle = UIBarStyleBlack;
+    [self.view addSubview:self._providerToolbar];
+
+    self._providerPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 300, 0, 0)];
+    self._providerPickerView.backgroundColor = [UIColor whiteColor];
+    self._providerPickerView.showsSelectionIndicator = YES;
+    self._providerPickerView.dataSource = self;
+    self._providerPickerView.delegate = self;
+
+    [self.view addSubview:self._providerPickerView];
+
+}
+
+- (void)dismissActionSheet:(id)sender{
+    [self.maskView removeFromSuperview];
+    [self._providerPickerView removeFromSuperview];
+    [self._providerToolbar removeFromSuperview];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

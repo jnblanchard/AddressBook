@@ -10,17 +10,51 @@
 #import "ContactViewController.h"
 #import "Contact.h"
 
-@interface CreateContactViewController ()
+@interface CreateContactViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
-@property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *zipField;
+@property (weak, nonatomic) IBOutlet UIButton *stateButton;
 @property (weak, nonatomic) IBOutlet UITextField *addressField;
+@property UIView* maskView;
+@property UIPickerView* _providerPickerView;
+@property UIToolbar *_providerToolbar;
+@property NSArray* states;
 @end
 
 @implementation CreateContactViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.states = @[@"AL",@"AK",@"AZ",@"AR",@"CA",@"CO",@"CT",@"DE",@"FL",@"GA",@"HI",@"ID",@"IL",@"IN",@"IA",@"KS",@"KY",@"LA",@"ME",@"MD",@"MA",@"MI",@"MN",@"MS",@"MO",@"MT",@"NE",@"NV",@"NH",@"NJ",@"NM",@"NY",@"NC",@"ND",@"OH",@"OK",@"OR",@"PA",@"RI",@"SC",@"SD",@"TN",@"TX",@"UT",@"VT",@"VA",@"WA",@"WV",@"WI",@"WY"];
+    NSLog(@"here");
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    [self.stateButton setTitle:[self.states objectAtIndex:row] forState:UIControlStateNormal];
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return 50;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self.states objectAtIndex:row];
+}
+
+- (IBAction)stateButtonPressed:(UIButton*)sender
+{
+    [self createPickerView];
+
 }
 
 - (IBAction)doneButtonPressed:(id)sender
@@ -28,13 +62,18 @@
     if ([self checkFields]) {
         [self.nameField resignFirstResponder];
         [self.phoneNumberField resignFirstResponder];
-        [self.emailField resignFirstResponder];
         [self.addressField resignFirstResponder];
-        [[UIBarButtonItem appearance] setTintColor:[UIColor blackColor]];
+        [self.lastNameField resignFirstResponder];
+        [self.zipField resignFirstResponder];
+        [[UIBarButtonItem appearance] setTintColor:[UIColor redColor]];
+        self.navigationController.navigationBar.tintColor = [UIColor redColor];
         Contact* person = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:self.moc];
-        person.name = self.nameField.text;
+        person.name = [self.nameField.text stringByAppendingString:[NSString stringWithFormat:@" %@",self.lastNameField.text]];
+        person.firstName = self.nameField.text;
+        person.lastName = self.lastNameField.text;
+        person.zip = self.zipField.text;
+        person.state = self.stateButton.titleLabel.text;
         person.phoneNumber = self.phoneNumberField.text;
-        person.email = self.emailField.text;
         person.address = self.addressField.text;
         person.isFavorite = [NSNumber numberWithBool:NO];
         if(self.book) {
@@ -54,7 +93,7 @@
 {
     NSString* message = @"";
     if ([self.nameField.text isEqualToString:@""]) {
-        message = [message stringByAppendingString:@"Enter a first, last name\n"];
+        message = [message stringByAppendingString:@"Enter a first name\n"];
     }
     if ([self.addressField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter an address\n"];
@@ -62,19 +101,66 @@
     if ([self.phoneNumberField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a phone number\n"];
     }
-    if ([self.emailField.text isEqualToString:@""]) {
-        message = [message stringByAppendingString:@"Enter an email"];
+    if ([self.zipField.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Enter a zip code\n"];
+    }
+    if (![self isTheZIPvalid]) {
+        message = [message stringByAppendingString:@"The zip is invalid\n"];
+    }
+    if ([self.lastNameField.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Enter a last name\n"];
+    }
+    if ([self.stateButton.titleLabel.text isEqualToString:@""]) {
+        message = [message stringByAppendingString:@"Click State button and select state"];
     }
     return message;
 }
 
--(BOOL)checkFields
+- (BOOL) isTheZIPvalid
 {
-    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.emailField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""]) {
+    if (![self.zipField.text isEqualToString:@""] ) {
         return YES;
     } else {
         return NO;
     }
+}
+
+-(BOOL)checkFields
+{
+    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void) createPickerView {
+    self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    [self.maskView setBackgroundColor:[UIColor clearColor]];
+
+    [self.view addSubview:self.maskView];
+    self._providerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 344, self.view.bounds.size.width, 44)];
+
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissActionSheet:)];
+    self._providerToolbar.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], done];
+    [self._providerToolbar setTintColor:[UIColor whiteColor]];
+    self._providerToolbar.barStyle = UIBarStyleBlack;
+    [self.view addSubview:self._providerToolbar];
+
+    self._providerPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 300, 0, 0)];
+    self._providerPickerView.backgroundColor = [UIColor whiteColor];
+    self._providerPickerView.showsSelectionIndicator = YES;
+    self._providerPickerView.dataSource = self;
+    self._providerPickerView.delegate = self;
+
+    [self.view addSubview:self._providerPickerView];
+
+}
+
+- (void)dismissActionSheet:(id)sender{
+    [self.maskView removeFromSuperview];
+    [self._providerPickerView removeFromSuperview];
+    [self._providerToolbar removeFromSuperview];
 }
 
 

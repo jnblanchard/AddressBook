@@ -2,7 +2,7 @@
 //  Contact.m
 //  AddressBook
 //
-//  Created by John Blanchard on 10/13/14.
+//  Created by John Blanchard on 10/15/14.
 //  Copyright (c) 2014 John Blanchard. All rights reserved.
 //
 
@@ -18,6 +18,10 @@
 @dynamic name;
 @dynamic phoneNumber;
 @dynamic photo;
+@dynamic lastName;
+@dynamic state;
+@dynamic zip;
+@dynamic firstName;
 @dynamic addressBook;
 
 @end
