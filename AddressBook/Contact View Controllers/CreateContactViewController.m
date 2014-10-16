@@ -10,7 +10,7 @@
 #import "ContactViewController.h"
 #import "Contact.h"
 
-@interface CreateContactViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface CreateContactViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property UIToolbar *_providerToolbar;
 @property NSArray* states;
+@property NSData* photo;
 @end
 
 @implementation CreateContactViewController
@@ -40,8 +41,19 @@
     [sender resignFirstResponder];
 }
 
-- (IBAction)cameraButtonPressed:(UIBarButtonItem *)sender {
-    
+- (IBAction)cameraButtonPressed:(UIBarButtonItem *)sender
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    self.photo = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage]);
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -97,6 +109,9 @@
         person.address = self.addressField.text;
         person.city = self.cityField.text;
         person.isFavorite = [NSNumber numberWithBool:NO];
+        if (![self.photo isEqual:nil]) {
+            person.photo = self.photo;
+        }
         if(self.book) {
             [self.book addContactsObject:person]; 
         }

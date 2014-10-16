@@ -111,7 +111,10 @@
     cell.emailLabel.textColor = [UIColor blackColor];
     cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@", person.city, person.state, person.zip];
     cell.addressLabel.textColor = [UIColor blackColor];
-    cell.photoImageView.image = [UIImage imageNamed:@"placeholder"];
+    cell.photoImageView.image = [UIImage imageWithData:person.photo];
+    if(!cell.photoImageView.image) {
+        cell.photoImageView.image = [UIImage imageNamed:@"placeholder"];
+    }
     return cell;
 }
 
