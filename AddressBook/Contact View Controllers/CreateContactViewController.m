@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *addressField;
 @property UIView* maskView;
 @property UIPickerView* _providerPickerView;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property UIToolbar *_providerToolbar;
 @property NSArray* states;
 @end
@@ -29,7 +30,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.states = @[@"AL",@"AK",@"AZ",@"AR",@"CA",@"CO",@"CT",@"DE",@"FL",@"GA",@"HI",@"ID",@"IL",@"IN",@"IA",@"KS",@"KY",@"LA",@"ME",@"MD",@"MA",@"MI",@"MN",@"MS",@"MO",@"MT",@"NE",@"NV",@"NH",@"NJ",@"NM",@"NY",@"NC",@"ND",@"OH",@"OK",@"OR",@"PA",@"RI",@"SC",@"SD",@"TN",@"TX",@"UT",@"VT",@"VA",@"WA",@"WV",@"WI",@"WY"];
-    NSLog(@"here");
+    self.doneButton.clipsToBounds = YES;
+    self.doneButton.layer.cornerRadius = 20;
+    self.stateButton.clipsToBounds = YES;
+    self.stateButton.layer.cornerRadius = 10;
+}
+
+- (IBAction)editingEnded:(UITextField*)sender {
+    [sender resignFirstResponder];
+}
+
+- (IBAction)cameraButtonPressed:(UIBarButtonItem *)sender {
+    
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView

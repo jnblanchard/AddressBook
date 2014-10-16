@@ -324,27 +324,44 @@
                                 <rect key="frame" x="16" y="86" width="288" height="30"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEndOnExit" id="9dC-jg-IbN"/>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEnd" id="sad-DN-Ftb"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="phone number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="adv-3s-nsw">
                                 <rect key="frame" x="16" y="164" width="288" height="30"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEnd" id="5G5-zU-8Dy"/>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEndOnExit" id="eUO-vK-4QW"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="zip" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tsU-hM-YhK">
                                 <rect key="frame" x="150" y="278" width="154" height="30"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEnd" id="6K5-hi-3kH"/>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEndOnExit" id="ImQ-0b-2cp"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="home address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hw9-Wc-GOM">
                                 <rect key="frame" x="16" y="202" width="288" height="30"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEndOnExit" id="LlV-Wt-bmb"/>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEnd" id="S9X-XS-6Gp"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2E-1E-Smf">
                                 <rect key="frame" x="16" y="321" width="288" height="81"/>
                                 <color key="backgroundColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="70"/>
                                 <state key="normal" title="Done">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -355,15 +372,24 @@
                                 <rect key="frame" x="16" y="124" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEnd" id="eDn-ka-cel"/>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEndOnExit" id="meQ-df-cg7"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-9d-kgg">
                                 <rect key="frame" x="16" y="240" width="288" height="30"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEnd" id="22h-Va-lAk"/>
+                                    <action selector="editingEnded:" destination="w2y-I3-eVA" eventType="editingDidEndOnExit" id="MRd-gm-PSC"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JG-Kk-oJs">
                                 <rect key="frame" x="16" y="278" width="126" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="24"/>
                                 <state key="normal" title="State">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -375,10 +401,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New Contact" id="kqX-Xl-Sp8"/>
+                    <navigationItem key="navigationItem" title="New Contact" id="kqX-Xl-Sp8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="2jJ-cV-dch">
+                            <connections>
+                                <action selector="cameraButtonPressed:" destination="w2y-I3-eVA" id="NXw-uK-UGE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addressField" destination="Hw9-Wc-GOM" id="w19-xn-0Lr"/>
                         <outlet property="cityField" destination="jhh-9d-kgg" id="7fO-Qn-dJK"/>
+                        <outlet property="doneButton" destination="F2E-1E-Smf" id="AYU-sT-Vlo"/>
                         <outlet property="lastNameField" destination="Cui-A6-0rn" id="ZYB-eU-QBU"/>
                         <outlet property="nameField" destination="Oy8-KI-LEx" id="Xe6-42-eJl"/>
                         <outlet property="phoneNumberField" destination="adv-3s-nsw" id="kgr-sV-jnX"/>
