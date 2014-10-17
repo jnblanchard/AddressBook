@@ -160,8 +160,8 @@
 {
     NSNumberFormatter* formatter = [NSNumberFormatter new];
     NSNumber* number = [formatter numberFromString:self.zipField.text];
-    NSLog(@"here - %@", number);
-    if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9) && number == [NSNumber numberWithInt:0]) {
+    NSLog(@"Number - %@", number);
+    if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9) && number != nil) {
         return YES;
     } else {
         self.zipField.text = @"";
@@ -172,7 +172,7 @@
 -(BOOL)checkFields
 {
     NSLog(@"%lu", (unsigned long)self.zipField.text.length);
-    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""] && ![self.cityField.text isEqualToString:@""]) {
+    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""] && ![self.cityField.text isEqualToString:@""] && [self isTheZIPvalid]) {
         return YES;
     } else {
         return NO;
