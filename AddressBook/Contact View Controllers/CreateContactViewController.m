@@ -158,7 +158,10 @@
 
 - (BOOL) isTheZIPvalid
 {
-    if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9)) {
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.zipField.text];
+    NSLog(@"here - %@", number);
+    if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9) && number == [NSNumber numberWithInt:0]) {
         return YES;
     } else {
         self.zipField.text = @"";
