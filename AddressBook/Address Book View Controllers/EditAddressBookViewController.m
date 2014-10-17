@@ -347,9 +347,11 @@
         }
     }
     if (alertView.tag == 8) {
-        [self.moc deleteObject:self.book];
-        [self.moc save:nil];
-        [self.navigationController popViewControllerAnimated:YES];
+        if (buttonIndex == 1) {
+            [self.moc deleteObject:self.book];
+            [self.moc save:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
