@@ -141,7 +141,7 @@
         message = [message stringByAppendingString:@"Enter a zip code\n"];
     }
     if (![self isTheZIPvalid]) {
-        message = [message stringByAppendingString:@"The zip is invalid\n"];
+        message = [message stringByAppendingString:@"The zip is invalid, enter a valid zip code\n"];
     }
     if ([self.lastNameField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a last name\n"];
@@ -158,18 +158,32 @@
 
 - (BOOL) isTheZIPvalid
 {
-    if (![self.zipField.text isEqualToString:@""] ) {
+    if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9)) {
         return YES;
     } else {
+        self.zipField.text = @"";
         return NO;
     }
 }
 
 -(BOOL)checkFields
 {
+    NSLog(@"%lu", (unsigned long)self.zipField.text.length);
     if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""] && ![self.cityField.text isEqualToString:@""]) {
         return YES;
     } else {
+        return NO;
+    }
+}
+
+-(BOOL)zipLength
+{
+    if (self.zipField.text.length == 5 || self.zipField.text.length == 9) {
+        return YES;
+    } else {
+        self.zipField.text = @"";
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invalid ZIP" message:@"ZIP has been reset, enter valid ZIP" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+        [alert show];
         return NO;
     }
 }
