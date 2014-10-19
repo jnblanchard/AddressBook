@@ -24,6 +24,7 @@
 @property UIToolbar *_providerToolbar;
 @property NSArray* states;
 @property NSData* photo;
+@property Contact* contact;
 @end
 
 @implementation CreateContactViewController
@@ -131,36 +132,62 @@
     if ([self.nameField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a first name\n"];
     }
+
     if ([self.addressField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter an address\n"];
     }
+    
     if ([self.phoneNumberField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a phone number\n"];
     }
+    if (![self isThePhoneNumberValid]) {
+        message = [message stringByAppendingString:@"phone number must contain 10 digits. ex: 7079356401\n"];
+    }
+
     if ([self.zipField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a zip code\n"];
     }
     if (![self isTheZIPvalid]) {
         message = [message stringByAppendingString:@"The zip is invalid, enter a valid zip code\n"];
     }
+
     if ([self.lastNameField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a last name\n"];
     }
+    
     if ([self.stateButton.titleLabel.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Click State button and select state\n"];
     }
+
+
     if ([self.cityField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a city"];
     }
+    if (![self iscityValid]) {
+        message = [message stringByAppendingString:@"City contains a number\n"];
+    }
 
     return message;
+}
+
+- (BOOL) isThePhoneNumberValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.phoneNumberField.text];
+//    NSLog(@"Number - %@", number);
+    if (![self.phoneNumberField.text isEqualToString:@""]&& number != nil && self.phoneNumberField.text.length == 10) {
+        return YES;
+    } else {
+        self.zipField.text = @"";
+        return NO;
+    }
 }
 
 - (BOOL) isTheZIPvalid
 {
     NSNumberFormatter* formatter = [NSNumberFormatter new];
     NSNumber* number = [formatter numberFromString:self.zipField.text];
-    NSLog(@"Number - %@", number);
+//    NSLog(@"Number - %@", number);
     if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9) && number != nil) {
         return YES;
     } else {
@@ -169,10 +196,34 @@
     }
 }
 
+- (BOOL) isLastNameValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.lastNameField.text];
+    if (![self.lastNameField.text isEqualToString:@""] && number == nil) {
+        return YES;
+    } else {
+        self.lastNameField.text = self.contact.lastName;
+        return NO;
+    }
+}
+
+- (BOOL) iscityValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.cityField.text];
+    if (![self.cityField.text isEqualToString:@""] && number == nil) {
+        return YES;
+    } else {
+        self.cityField.text = self.contact.city;
+        return NO;
+    }
+}
+
 -(BOOL)checkFields
 {
     NSLog(@"%lu", (unsigned long)self.zipField.text.length);
-    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""] && ![self.cityField.text isEqualToString:@""] && [self isTheZIPvalid]) {
+    if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""] && ![self.cityField.text isEqualToString:@""] && [self isTheZIPvalid] && [self isThePhoneNumberValid]) {
         return YES;
     } else {
         return NO;

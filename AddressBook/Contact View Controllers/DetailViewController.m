@@ -158,6 +158,19 @@
     }
 }
 
+- (BOOL) isTheZIPvalid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.zipField.text];
+    NSLog(@"Number - %@", number);
+    if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9) && number != nil) {
+        return YES;
+    } else {
+        self.zipField.text = @"";
+        return NO;
+    }
+}
+
 - (IBAction)favoriteButtonPressed:(id)sender
 {
     if ([self.person.isFavorite isEqual:@1]) {
