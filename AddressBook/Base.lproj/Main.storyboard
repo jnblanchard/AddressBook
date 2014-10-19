@@ -178,6 +178,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIK-d4-2xw">
                                 <rect key="frame" x="16" y="350" width="126" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="24"/>
                                 <state key="normal" title="State">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -388,7 +389,6 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JG-Kk-oJs">
                                 <rect key="frame" x="16" y="278" width="126" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="24"/>
                                 <state key="normal" title="State">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -403,6 +403,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="New Contact" id="kqX-Xl-Sp8">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="2jJ-cV-dch">
+                            <color key="tintColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cameraButtonPressed:" destination="w2y-I3-eVA" id="NXw-uK-UGE"/>
                             </connections>
@@ -500,11 +501,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="New Group" id="kmi-3J-y9Y">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="KD7-IS-Pj8">
+                            <color key="tintColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="rewindButtonHit:" destination="A7w-sB-dsa" id="C3K-0u-i3h"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="dXx-QV-e03">
+                            <color key="tintColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="editButtonHit:" destination="A7w-sB-dsa" id="aHD-xP-6Cg"/>
                             </connections>
