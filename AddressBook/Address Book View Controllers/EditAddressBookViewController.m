@@ -232,19 +232,19 @@
         if ([self.book.contacts containsObject:person]) {
             [self.book removeContactsObject:person];
             [self.popFavArray removeObject:person];
-            [self.tableView reloadData];
+            [self readSwitchPopulateGroup];
 
         } else {
             [self.book addContactsObject:person];
             [self.popFavArray addObject:person];
-            [self.tableView reloadData];
+            [self readSwitchPopulateGroup];
         }
 
     } else {
         person = [self.popFavArray objectAtIndex:indexPath.row];
         [self.book removeContactsObject:person];
         [self.popFavArray removeObject:person];
-        [self.tableView reloadData];
+        [self readSwitchPopulateGroup];
     }
     if (![self.book.contacts isEqual:self.bookCopy.contacts]) {
         self.okayToEndSwitch = NO;
@@ -261,18 +261,14 @@
     //    if (self.editSwitch) {
     //        person = [self.allArray objectAtIndex:indexPath.row];
     //    } else {
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.detailTextLabel.text = @"";
     if (self.segmentedControl.selectedSegmentIndex == 1) {
         person = [self.popFavArray objectAtIndex:indexPath.row];
     } else {
         person = [self.popArray objectAtIndex:indexPath.row];
     }
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.textLabel.text = person.name;
-    if ([self.book.contacts containsObject:person]) {
-        cell.detailTextLabel.text = @"X";
-    } else {
-        cell.detailTextLabel.text = @"";
-    }
     return cell;
 }
 
@@ -287,12 +283,7 @@
 
 - (IBAction)segmentedControlChange:(id)sender
 {
-    if (self.editSwitch) {
-        [self setUpArrays];
-    } else {
-        [self searchResultsAndReload];
-    }
-    [self.tableView reloadData];
+    [self readSwitchPopulateGroup];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
