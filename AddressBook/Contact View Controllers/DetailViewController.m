@@ -32,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpView];
+
     self.states = @[@"AL",@"AK",@"AZ",@"AR",@"CA",@"CO",@"CT",@"DE",@"FL",@"GA",@"HI",@"ID",@"IL",@"IN",@"IA",@"KS",@"KY",@"LA",@"ME",@"MD",@"MA",@"MI",@"MN",@"MS",@"MO",@"MT",@"NE",@"NV",@"NH",@"NJ",@"NM",@"NY",@"NC",@"ND",@"OH",@"OK",@"OR",@"PA",@"RI",@"SC",@"SD",@"TN",@"TX",@"UT",@"VT",@"VA",@"WA",@"WV",@"WI",@"WY"];
 }
 
@@ -91,6 +92,9 @@
      attributes:@{NSForegroundColorAttributeName:color}];
     [self.stateButton setTitle:self.person.state forState:UIControlStateNormal];
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
+    if (![self.person isEqual:nil]) {
+        [self.navigationItem setTitle:self.person.name];
+    }
     if (!self.person.isFavorite) {
         self.person.isFavorite = [NSNumber numberWithBool:NO];
         [self.moc save:nil];

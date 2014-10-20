@@ -46,7 +46,7 @@
          attributes:@{NSForegroundColorAttributeName:color}];
     }
     self.segmentedControl.selectedSegmentIndex = 1;
-    [self.tableView reloadData];
+    [self readSwitchPopulateGroup];
     self.okayToEndSwitch = YES;
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.layer.borderColor = [UIColor blackColor].CGColor;
@@ -137,8 +137,8 @@
     for (Contact* contact in self.popFavArray ) {
         NSLog(@"%@", contact);
         message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", contact.name]];
-        message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n\n", contact.address]];
-        message = [message stringByAppendingString:[NSString stringWithFormat:@"%@ %@ %@", contact.city, contact.state, contact.zip]];
+        message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", contact.address]];
+        message = [message stringByAppendingString:[NSString stringWithFormat:@"%@ %@ %@\n\n", contact.city, contact.state, contact.zip]];
     }
     return message;
 }
@@ -262,11 +262,15 @@
     //        person = [self.allArray objectAtIndex:indexPath.row];
     //    } else {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.detailTextLabel.text = @"";
+    cell.detailTextLabel.text = @"O";
     if (self.segmentedControl.selectedSegmentIndex == 1) {
         person = [self.popFavArray objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text = @"X";
     } else {
         person = [self.popArray objectAtIndex:indexPath.row];
+        if ([self.popFavArray containsObject:person]) {
+            cell.detailTextLabel.text = @"X";
+        }
     }
     cell.textLabel.text = person.name;
     return cell;
@@ -386,6 +390,7 @@
 {
     return @"View";
 }
+
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
