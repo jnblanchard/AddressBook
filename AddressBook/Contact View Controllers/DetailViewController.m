@@ -23,6 +23,7 @@
 @property UIView* maskView;
 @property UIPickerView* _providerPickerView;
 @property UIToolbar *_providerToolbar;
+@property (weak, nonatomic) IBOutlet UIButton *printButton;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property NSArray* states;
 @end
@@ -65,6 +66,8 @@
     self.lastNameField.userInteractionEnabled = NO;
     self.stateButton.userInteractionEnabled = NO;
     self.cityField.userInteractionEnabled = NO;
+    self.printButton.clipsToBounds = YES;
+    self.printButton.layer.cornerRadius = 20;
     UIColor *color = [UIColor lightGrayColor];
     self.nameField.attributedPlaceholder =
     [[NSAttributedString alloc]
@@ -230,6 +233,15 @@
         avc.moc = self.moc;
         [avc setUpAddressArray];
     }
+}
+
+- (IBAction)printPersonInMailingLabelFormat:(id)sender
+{
+    NSString* message = @"";
+    message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", self.person.name]];
+    message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", self.person.address]];
+    message = [message stringByAppendingString:[NSString stringWithFormat:@"%@ %@ %@\n\n", self.person.city, self.person.state, self.person.zip]];
+    NSLog(@"%@", message);
 }
 
 @end

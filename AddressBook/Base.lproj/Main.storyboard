@@ -202,6 +202,18 @@
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTk-r6-RVW">
+                                <rect key="frame" x="16" y="388" width="288" height="58"/>
+                                <color key="backgroundColor" red="1" green="0.12889330169999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                <state key="normal" title="Print">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="printPersonInMailingLabelFormat:" destination="EyP-KZ-Mbd" eventType="touchUpInside" id="Jcw-p9-Kf0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -222,6 +234,7 @@
                         <outlet property="lastNameField" destination="tUP-yo-dT6" id="OC3-kg-pxv"/>
                         <outlet property="nameField" destination="RQx-0L-BQk" id="Cpr-77-ybO"/>
                         <outlet property="phoneNumber" destination="snV-Qo-Z7e" id="bKW-kP-1Br"/>
+                        <outlet property="printButton" destination="BTk-r6-RVW" id="FA9-W0-eyx"/>
                         <outlet property="stateButton" destination="CIK-d4-2xw" id="Ep9-cg-62F"/>
                         <outlet property="zipField" destination="1Va-kZ-4Si" id="wB9-VZ-iDu"/>
                     </connections>
