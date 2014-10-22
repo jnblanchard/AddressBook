@@ -9,7 +9,7 @@
 #import "DetailViewController.h"
 #import "ContactViewController.h"
 
-@interface DetailViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface DetailViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameField;
@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *printButton;
 @property (weak, nonatomic) IBOutlet UITextField *cityField;
 @property NSArray* states;
+@property Contact* contactCopy;
 @end
 
 @implementation DetailViewController
@@ -33,8 +34,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpView];
-
+    self.contactCopy = self.person;
     self.states = @[@"AL",@"AK",@"AZ",@"AR",@"CA",@"CO",@"CT",@"DE",@"FL",@"GA",@"HI",@"ID",@"IL",@"IN",@"IA",@"KS",@"KY",@"LA",@"ME",@"MD",@"MA",@"MI",@"MN",@"MS",@"MO",@"MT",@"NE",@"NV",@"NH",@"NJ",@"NM",@"NY",@"NC",@"ND",@"OH",@"OK",@"OR",@"PA",@"RI",@"SC",@"SD",@"TN",@"TX",@"UT",@"VT",@"VA",@"WA",@"WV",@"WI",@"WY"];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound)
+    {
+        
+    }
+    [super viewWillDisappear:animated];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        self.person = self.contactCopy;
+        [self.moc save:nil];
+    }
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -141,16 +158,43 @@
         self.stateButton.userInteractionEnabled = NO;
         self.cityField.userInteractionEnabled = NO;
         if (![self.nameField.text isEqualToString:@""]) {
-            self.person.firstName = self.nameField.text;
+            if ([self isFirstNameValid]) {
+                self.person.firstName = self.nameField.text;
+                self.person.name = [NSString stringWithFormat:@"%@ %@",self.person.firstName, self.person.lastName];
+            } else {
+                self.nameField.text = @"";
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"First name invalid" message:@"First name must be alphabetical" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+                [alert show];
+            }
+
         }
         if (![self.lastNameField.text isEqualToString:@""]) {
-            self.person.lastName = self.lastNameField.text;
+            if ([self isLastNameValid]) {
+                self.person.lastName = self.lastNameField.text;
+                self.person.name = [NSString stringWithFormat:@"%@ %@",self.person.firstName, self.person.lastName];
+            } else {
+                self.lastNameField.text = @"";
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Last name invalid" message:@"Last name must be alphabetical" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+                [alert show];
+            }
         }
         if (![self.phoneNumber.text isEqualToString:@""]) {
-            self.person.phoneNumber = self.phoneNumber.text;
+            if ([self isThePhoneNumberValid]) {
+                self.person.phoneNumber = self.phoneNumber.text;
+            } else {
+                self.phoneNumber.text = @"";
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Phone number invalid" message:@"phone numbers are 10 digits: ex ( 7079543232 )" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+                [alert show];
+            }
         }
         if (![self.zipField.text isEqualToString:@""]) {
-            self.person.zip = self.zipField.text;
+            if ([self isTheZIPvalid]) {
+                self.person.zip = self.zipField.text;
+            } else {
+                self.zipField.text = @"";
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"ZIP invalid" message:@"Zip must have 5 or 9 digits" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+                [alert show];
+            }
         }
         if (![self.addressField.text isEqualToString:@""]) {
             self.person.address = self.addressField.text;
@@ -159,9 +203,39 @@
             self.person.state = self.stateButton.titleLabel.text;
         }
         if (![self.cityField.text isEqualToString:@""]) {
-            self.person.city = self.cityField.text;
+            if ([self iscityValid]) {
+                self.person.city = self.cityField.text;
+            } else {
+                self.cityField.text = @"";
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"City invalid" message:@"Citys must be alphabetical" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+                [alert show];
+            }
         }
         [self.moc save:nil];
+    }
+}
+
+- (BOOL) isThePhoneNumberValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.phoneNumber.text];
+    if (![self.phoneNumber.text isEqualToString:@""]&& number != nil && self.phoneNumber.text.length == 10) {
+        return YES;
+    } else {
+        self.zipField.text = @"";
+        return NO;
+    }
+}
+
+- (BOOL) iscityValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.cityField.text];
+    if (![self.cityField.text isEqualToString:@""] && number == nil) {
+        return YES;
+    } else {
+        self.cityField.text = self.person.city;
+        return NO;
     }
 }
 
@@ -169,11 +243,32 @@
 {
     NSNumberFormatter* formatter = [NSNumberFormatter new];
     NSNumber* number = [formatter numberFromString:self.zipField.text];
-    NSLog(@"Number - %@", number);
     if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9) && number != nil) {
         return YES;
     } else {
         self.zipField.text = @"";
+        return NO;
+    }
+}
+
+- (BOOL) isFirstNameValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.nameField.text];
+    if ( number == nil) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL) isLastNameValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.lastNameField.text];
+    if ( number == nil) {
+        return YES;
+    } else {
         return NO;
     }
 }

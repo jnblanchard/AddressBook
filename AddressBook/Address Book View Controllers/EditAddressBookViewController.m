@@ -124,18 +124,12 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     [self searchResultsAndReload];
-//    if (self.editSwitch) {
-//        [self setUpArrays];
-//    } else {
-//        [self searchResultsAndReload];
-//    }
 }
 
 - (NSString*) createEmailBookString
 {
     NSString* message = @"";
     for (Contact* contact in self.popFavArray ) {
-        NSLog(@"%@", contact);
         message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", contact.name]];
         message = [message stringByAppendingString:[NSString stringWithFormat:@"%@\n", contact.address]];
         message = [message stringByAppendingString:[NSString stringWithFormat:@"%@ %@ %@\n\n", contact.city, contact.state, contact.zip]];
@@ -159,11 +153,8 @@
         NSLog(@"import contact");
     }
     if(buttonIndex == 2) {
-            // Email Subject
             NSString *emailTitle = [NSString stringWithFormat:@"%@ address book", self.book.name];
-            // Email Content
             NSString *messageBody = [self createEmailBookString];
-            // To address
             NSArray *toRecipents = [NSArray arrayWithObject:@"jnblanchard@mac.com"];
         
             MFMailComposeViewController *mc = [MFMailComposeViewController new];
@@ -172,7 +163,6 @@
             [mc setMessageBody:messageBody isHTML:NO];
             [mc setToRecipients:toRecipents];
         
-            // Present mail view controller on screen
             [self presentViewController:mc animated:YES completion:NULL];
     }
     if (buttonIndex == 3) {
@@ -209,24 +199,12 @@
             break;
     }
 
-    // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Contact* person;
-    //    if (self.editSwitch) {
-    //        person = [self.allArray objectAtIndex:indexPath.row];
-    //        if ([self.popArray containsObject:person]) {
-    //            [self.popArray removeObject:person];
-    //            [self.book removeContactsObject:person];
-    //        } else {
-    //            [self.popArray addObject:person];
-    //            [self.book addContactsObject:person];
-    //        }
-    //        [self.tableView reloadData];
-    //    } else {
     if(self.segmentedControl.selectedSegmentIndex == 0) {
         person = [self.popArray objectAtIndex:indexPath.row];
         if ([self.book.contacts containsObject:person]) {
@@ -258,9 +236,6 @@
 {
 
     Contact* person;
-    //    if (self.editSwitch) {
-    //        person = [self.allArray objectAtIndex:indexPath.row];
-    //    } else {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.detailTextLabel.text = @"O";
     if (self.segmentedControl.selectedSegmentIndex == 1) {
@@ -292,9 +267,6 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (self.editSwitch) {
-//        return self.allArray.count;
-//    } else {
     if (self.segmentedControl.selectedSegmentIndex == 1) {
         return self.popFavArray.count;
     } else {

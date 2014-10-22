@@ -132,6 +132,9 @@
     if ([self.nameField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a first name\n"];
     }
+    if (![self isFirstNameValid]) {
+        message = [message stringByAppendingString:@"First name must be alphabetical\n"];
+    }
 
     if ([self.addressField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter an address\n"];
@@ -154,6 +157,9 @@
     if ([self.lastNameField.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Enter a last name\n"];
     }
+    if (![self isLastNameValid]) {
+        message = [message stringByAppendingString:@"Last name must be alphabetical\n"];
+    }
     
     if ([self.stateButton.titleLabel.text isEqualToString:@""]) {
         message = [message stringByAppendingString:@"Click State button and select state\n"];
@@ -161,25 +167,62 @@
 
 
     if ([self.cityField.text isEqualToString:@""]) {
-        message = [message stringByAppendingString:@"Enter a city"];
+        message = [message stringByAppendingString:@"Enter a city\n"];
     }
     if (![self iscityValid]) {
-        message = [message stringByAppendingString:@"City contains a number\n"];
+        message = [message stringByAppendingString:@"City must be alphabetical"];
     }
 
     return message;
+}
+
+- (BOOL) isLastNameValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.lastNameField.text];
+    if ([self.lastNameField.text isEqualToString:@""]) {
+        return YES;
+    } else {
+        if (![self.lastNameField.text isEqualToString:@""] && number == nil) {
+            return YES;
+        } else {
+            self.lastNameField.text = @"";
+            return NO;
+        }
+    }
+}
+
+- (BOOL) isFirstNameValid
+{
+    NSNumberFormatter* formatter = [NSNumberFormatter new];
+    NSNumber* number = [formatter numberFromString:self.nameField.text];
+    if ([self.nameField.text isEqualToString:@""]) {
+        return YES;
+    } else {
+        if (![self.nameField.text isEqualToString:@""] && number == nil) {
+            return YES;
+        } else {
+            self.nameField.text = @"";
+            return NO;
+        }
+    }
 }
 
 - (BOOL) isThePhoneNumberValid
 {
     NSNumberFormatter* formatter = [NSNumberFormatter new];
     NSNumber* number = [formatter numberFromString:self.phoneNumberField.text];
-//    NSLog(@"Number - %@", number);
-    if (![self.phoneNumberField.text isEqualToString:@""]&& number != nil && self.phoneNumberField.text.length == 10) {
+    if ([self.phoneNumberField.text isEqualToString:@""]) {
         return YES;
     } else {
-        self.zipField.text = @"";
-        return NO;
+
+
+        if (![self.phoneNumberField.text isEqualToString:@""] && number != nil && self.phoneNumberField.text.length == 10) {
+            return YES;
+        } else {
+            self.zipField.text = @"";
+            return NO;
+        }
     }
 }
 
@@ -187,24 +230,15 @@
 {
     NSNumberFormatter* formatter = [NSNumberFormatter new];
     NSNumber* number = [formatter numberFromString:self.zipField.text];
-//    NSLog(@"Number - %@", number);
-    if (![self.zipField.text isEqualToString:@""] && (self.zipField.text.length == 5 || self.zipField.text.length == 9) && number != nil) {
+    if ([self.zipField.text isEqualToString:@""]) {
         return YES;
     } else {
-        self.zipField.text = @"";
-        return NO;
-    }
-}
-
-- (BOOL) isLastNameValid
-{
-    NSNumberFormatter* formatter = [NSNumberFormatter new];
-    NSNumber* number = [formatter numberFromString:self.lastNameField.text];
-    if (![self.lastNameField.text isEqualToString:@""] && number == nil) {
-        return YES;
-    } else {
-        self.lastNameField.text = self.contact.lastName;
-        return NO;
+        if ((self.zipField.text.length == 5 || self.zipField.text.length == 9) && number != nil) {
+            return YES;
+        } else {
+            self.zipField.text = @"";
+            return NO;
+        }
     }
 }
 
@@ -212,17 +246,20 @@
 {
     NSNumberFormatter* formatter = [NSNumberFormatter new];
     NSNumber* number = [formatter numberFromString:self.cityField.text];
-    if (![self.cityField.text isEqualToString:@""] && number == nil) {
+    if ([self.cityField.text isEqualToString:@""]) {
         return YES;
     } else {
-        self.cityField.text = self.contact.city;
-        return NO;
+        if (![self.cityField.text isEqualToString:@""] && number == nil) {
+            return YES;
+        } else {
+            self.cityField.text = self.contact.city;
+            return NO;
+        }
     }
 }
 
 -(BOOL)checkFields
 {
-    NSLog(@"%lu", (unsigned long)self.zipField.text.length);
     if (![self.nameField.text isEqualToString:@""] && ![self.phoneNumberField.text isEqualToString:@""] && ![self.zipField.text isEqualToString:@""] && ![self.addressField.text isEqualToString:@""] && ![self.stateButton.titleLabel.text isEqualToString:@"State"] && ![self.lastNameField.text isEqualToString:@""] && ![self.cityField.text isEqualToString:@""] && [self isTheZIPvalid] && [self isThePhoneNumberValid]) {
         return YES;
     } else {
